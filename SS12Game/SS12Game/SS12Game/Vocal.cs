@@ -15,6 +15,8 @@ namespace SS12Game
         public enum Verbs
         {
             None = 0,
+            Ready,
+            Fire,
             Colorize,
             RandomColors,
             ShapesAndColors,
@@ -28,6 +30,12 @@ namespace SS12Game
             public Verbs verb;
             public Color color;
         }
+
+        Dictionary<string, WhatSaid> GameplayPhrases = new Dictionary<string, WhatSaid>()
+        {
+            {"Ready", new WhatSaid()       {verb=Verbs.Ready}},
+            {"Fire", new WhatSaid()       {verb=Verbs.Fire}}
+        };
 
         //set up dictionary for basic colors
         Dictionary<string, WhatSaid> ColorPhrases = new Dictionary<string, WhatSaid>()
@@ -96,12 +104,21 @@ namespace SS12Game
             foreach (var phrase in SinglePhrases)
                 single.Add(phrase.Key);
 
+            var gameplay = new Choices();
+            foreach (var phrase in GameplayPhrases)
+                gameplay.Add(phrase.Key);
+
             var colors = new Choices();
             foreach (var phrase in ColorPhrases)
                 colors.Add(phrase.Key);
 
+            var objectChoices = new Choices();
+            objectChoices.Add(gameplay);
+            objectChoices.Add(colors);
+
             var actionGrammar = new GrammarBuilder();
             actionGrammar.AppendWildcard();
+            actionGrammar.Append(objectChoices);
 
             var allChoices = new Choices();
             allChoices.Add(actionGrammar);
@@ -115,7 +132,7 @@ namespace SS12Game
             sre.SpeechRecognized += sre_SpeechRecognized;
             sre.SpeechHypothesized += sre_SpeechHypothesized;
             sre.SpeechRecognitionRejected += new EventHandler<SpeechRecognitionRejectedEventArgs>(sre_SpeechRecognitionRejected);
-
+            
             var t = new Thread(StartDMO);
             t.Start();
 
