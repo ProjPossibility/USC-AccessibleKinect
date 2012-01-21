@@ -17,6 +17,7 @@ namespace SS12Game
             None = 0,
             Ready,
             Fire,
+            Number,
             Colorize,
             RandomColors,
             ShapesAndColors,
@@ -29,6 +30,7 @@ namespace SS12Game
         {
             public Verbs verb;
             public Color color;
+            public int angle;
         }
 
         Dictionary<string, WhatSaid> GameplayPhrases = new Dictionary<string, WhatSaid>()
@@ -57,6 +59,20 @@ namespace SS12Game
             {"Black", new WhatSaid()            {verb=Verbs.Colorize, color = new Color(5,5,5)}},
             {"Bright", new WhatSaid()           {verb=Verbs.Colorize, color = new Color(240,240,240)}},
             {"White", new WhatSaid()            {verb=Verbs.Colorize, color = new Color(255,255,255)}},
+        };
+
+        Dictionary<string, WhatSaid> NumberPhrases = new Dictionary<string, WhatSaid>()
+        {
+            {"0", new WhatSaid()                {verb=Verbs.Number, angle = 0}},
+            {"1", new WhatSaid()                {verb=Verbs.Number, angle = 1}},
+            {"2", new WhatSaid()                {verb=Verbs.Number, angle = 2}},
+            {"3", new WhatSaid()                {verb=Verbs.Number, angle = 3}},
+            {"4", new WhatSaid()                {verb=Verbs.Number, angle = 4}},
+            {"5", new WhatSaid()                {verb=Verbs.Number, angle = 5}},
+            {"6", new WhatSaid()                {verb=Verbs.Number, angle = 6}},
+            {"7", new WhatSaid()                {verb=Verbs.Number, angle = 7}},
+            {"8", new WhatSaid()                {verb=Verbs.Number, angle = 8}},
+            {"9", new WhatSaid()                {verb=Verbs.Number, angle = 9}},
         };
 
         //Set up dictionary for single command phrases
@@ -112,9 +128,23 @@ namespace SS12Game
             foreach (var phrase in ColorPhrases)
                 colors.Add(phrase.Key);
 
+            var numbers = new Choices();
+            foreach (var phrase in NumberPhrases)
+                numbers.Add(phrase.Key);
+
+            var numberAction = new GrammarBuilder();
+            numberAction.Append(gameplay);
+            numberAction.Append(numbers);
+
+            var doubleNumber = new GrammarBuilder();
+            numberAction.Append(gameplay);
+            numberAction.Append(numbers);
+            numberAction.Append(numbers);
+            
             var objectChoices = new Choices();
             objectChoices.Add(gameplay);
             objectChoices.Add(colors);
+            objectChoices.Add(doubleNumber);
 
             var actionGrammar = new GrammarBuilder();
             actionGrammar.AppendWildcard();
@@ -134,6 +164,7 @@ namespace SS12Game
             sre.SpeechRecognitionRejected += new EventHandler<SpeechRecognitionRejectedEventArgs>(sre_SpeechRecognitionRejected);
             
             var t = new Thread(StartDMO);
+            t.Name = "Kinect Audio";
             t.Start();
 
             valid = true;
@@ -173,7 +204,7 @@ namespace SS12Game
             var said = new SaidSomethingArgs();
             said.Verb = Verbs.None;
             said.Matched = "?";
-            SaidSomething(new object(), said);
+            //SaidSomething(new object(), said);
             Console.WriteLine("\nSpeech Rejected");
         }
 

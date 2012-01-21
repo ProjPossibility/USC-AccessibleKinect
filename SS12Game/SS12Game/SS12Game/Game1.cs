@@ -21,6 +21,7 @@ namespace SS12Game
 
         public Game1()
         {
+            Vocal voiceCommand = new Vocal();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
