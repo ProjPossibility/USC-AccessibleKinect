@@ -6,6 +6,7 @@ using Microsoft.Research.Kinect.Audio;
 using Microsoft.Speech.AudioFormat;
 using Microsoft.Speech.Recognition;
 using Microsoft.Xna.Framework;
+using System.Threading;
 
 namespace SS12Game
 {
@@ -28,7 +29,7 @@ namespace SS12Game
             public Color color;
         }
 
-        //set up dictionary for 
+        //set up dictionary for basic colors
         Dictionary<string, WhatSaid> ColorPhrases = new Dictionary<string, WhatSaid>()
         {
             {"Every Color", new WhatSaid()      {verb=Verbs.RandomColors}},
@@ -67,12 +68,60 @@ namespace SS12Game
             {"Go", new WhatSaid()               {verb=Verbs.Resume}},
         };
 
+        public class SaidSomethingArgs : EventArgs
+        {
+            public Verbs Verb { get; set; }
+            public Color RGBColor { get; set; }
+            public string Phrase { get; set; }
+            public string Matched {get; set; }
+        }
+
+        public event EventHandler<SaidSomethingArgs> SaidSomething;
+
         private KinectAudioSource kinectSource;
         private SpeechRecognitionEngine sre;
         private const string RecognizerId = "SR_MS_en-US_Kinect_10.0";
         private bool paused = false;
         private bool valid = false;
 
+        public Vocal()
+        {
+            RecognizerInfo ri = SpeechRecognitionEngine.InstalledRecognizers().Where(r => r.Id == RecognizerId).FirstOrDefault();
+            if (ri == null)
+                return;
+
+            sre = new SpeechRecognitionEngine(ri.Id);
+
+            var single = new Choices();
+            foreach (var phrase in SinglePhrases)
+                single.Add(phrase.Key);
+
+            var colors = new Choices();
+            foreach (var phrase in ColorPhrases)
+                colors.Add(phrase.Key);
+
+            var actionGrammar = new GrammarBuilder();
+            actionGrammar.AppendWildcard();
+
+            var allChoices = new Choices();
+            allChoices.Add(actionGrammar);
+            allChoices.Add(single);
+
+            var gb = new GrammarBuilder();
+            gb.Append(allChoices);
+
+            var g = new Grammar(gb);
+            sre.LoadGrammar(g);
+            sre.SpeechRecognized += sre_SpeechRecognized;
+            sre.SpeechHypothesized += sre_SpeechHypothesized;
+            sre.SpeechRecognitionRejected += new EventHandler<SpeechRecognitionRejectedEventArgs>(sre_SpeechRecognitionRejected);
+
+            var t = new Thread(StartDMO);
+            t.Start();
+
+            valid = true;
+        }
+        
         public bool IsValid()
         {
             return valid;
@@ -102,5 +151,84 @@ namespace SS12Game
             }
         }
 
+        void sre_SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
+        {
+            var said = new SaidSomethingArgs();
+            said.Verb = Verbs.None;
+            said.Matched = "?";
+            SaidSomething(new object(), said);
+            Console.WriteLine("\nSpeech Rejected");
+        }
+
+        void sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
+        {
+            Console.Write("\rSpeech Hypothesized: \t{0}", e.Result.Text);
+        }
+
+        void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            Console.Write("\rSpeech Recognized: \t{0}", e.Result.Text);
+            
+            if (SaidSomething == null)
+                return;
+            
+            var said = new SaidSomethingArgs();
+            said.RGBColor = new Color(0, 0, 0);
+            said.Verb = 0;
+            said.Phrase = e.Result.Text;
+
+            // First check for color, in case both color _and_ shape were both spoken
+            bool foundColor = false;
+            foreach (var phrase in ColorPhrases)
+                if (e.Result.Text.Contains(phrase.Key) && (phrase.Value.verb == Verbs.Colorize))
+                {
+                    said.RGBColor = phrase.Value.color;
+                    said.Matched = phrase.Key;
+                    foundColor = true;
+                    break;
+                }
+            
+            // Look for a match in the order of the lists below, first match wins.
+            List<Dictionary<string, WhatSaid>> allDicts = new List<Dictionary<string, WhatSaid>>()
+                { ColorPhrases, SinglePhrases };
+
+            bool found = false;
+            for (int i = 0; i < allDicts.Count && !found; ++i)
+            {
+                foreach (var phrase in allDicts[i])
+                {
+                    if (e.Result.Text.Contains(phrase.Key))
+                    {
+                        said.Verb = phrase.Value.verb;
+                        {
+                            said.Matched = phrase.Key;
+                            said.RGBColor = phrase.Value.color;
+                        }
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!found)
+                return;
+
+            if (paused) // Only accept restart or reset
+            {
+                if ((said.Verb != Verbs.Resume) && (said.Verb != Verbs.Reset))
+                    return;
+                paused = false;
+            }
+            else
+            {
+                if (said.Verb == Verbs.Resume)
+                    return;
+            }
+            
+            if (said.Verb == Verbs.Pause)
+                paused = true;
+
+            SaidSomething(new object(), said);
+        }
     }
 }

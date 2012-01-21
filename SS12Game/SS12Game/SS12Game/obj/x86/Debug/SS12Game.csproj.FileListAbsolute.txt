@@ -1,0 +1,6 @@
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\SS12Game\SS12Game\SS12Game\bin\x86\Debug\SS12Game.exe
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\SS12Game\SS12Game\SS12Game\bin\x86\Debug\SS12Game.pdb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\SS12Game\SS12Game\SS12Game\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\SS12Game\SS12Game\SS12Game\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\SS12Game\SS12Game\SS12Game\obj\x86\Debug\SS12Game.exe
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\SS12Game\SS12Game\SS12Game\obj\x86\Debug\SS12Game.pdb
