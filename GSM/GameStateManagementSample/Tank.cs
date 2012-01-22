@@ -14,6 +14,18 @@ namespace GameStateManagement
 {
     class Tank : Actor
     {
+        bool myBHuman;
+        public bool bHuman
+        {
+            get
+            {
+                return myBHuman;
+            }
+            set
+            {
+                myBHuman = value;
+            }
+        }
         public Tank(Game game)
             : base(game)
         {
