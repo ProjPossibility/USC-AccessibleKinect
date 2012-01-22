@@ -28,14 +28,13 @@ namespace GameStateManagement
         #region Fields
 
         ContentManager content;
-        SpriteFont gameFont;
-
-        Vector2 playerPosition = new Vector2(100, 100);
-        Vector2 enemyPosition = new Vector2(100, 100);
 
         Random random = new Random();
 
-        Tank player;
+        Tank player1;
+        Tank player2;
+
+        bool isPlayer1Turn;
 
         float pauseAlpha;
 
@@ -62,11 +61,17 @@ namespace GameStateManagement
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            gameFont = content.Load<SpriteFont>("gamefont");
             ScreenManager.Game.ResetElapsedTime();
 
-            player = new Tank(ScreenManager.Game);
-            ScreenManager.Game.Components.Add(player);
+            player1 = new Tank(ScreenManager.Game);
+            ScreenManager.Game.Components.Add(player1);
+            player1.tankState = Tank.TankState.Aiming;
+
+
+            player2 = new Tank(ScreenManager.Game);
+            ScreenManager.Game.Components.Add(player2);
+
+            isPlayer1Turn = true;
         }
 
 
@@ -102,21 +107,30 @@ namespace GameStateManagement
 
             if (IsActive)
             {
-                // Apply some random jitter to make the enemy move around.
-                const float randomization = 10;
-
-                enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
-                enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
-
-                // Apply a stabilizing force to stop the enemy moving off the screen.
-                Vector2 targetPosition = new Vector2(
-                    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2, 
-                    200);
-
-                enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
-
-                // TODO: this game isn't very fun! You could probably improve
-                // it by inserting something more interesting in this space :-)
+                if ((player1.tankState == Tank.TankState.Reset ||
+                    player2.tankState == Tank.TankState.Reset) &&
+                       !(player1.AnimationRunning ||
+                        player2.AnimationRunning))
+                {
+                    //Player 1's Turn just finished
+                    if (player1.isActive)
+                    {
+                        player1.isActive = false;
+                        player2.isActive = true;
+                        isPlayer1Turn = false;
+                        player1.tankState = Tank.TankState.Idle;
+                        player2.tankState = Tank.TankState.Aiming;
+                    }
+                    //Player 2's Turn just finished
+                    else
+                    {
+                        player1.isActive = true;
+                        player2.isActive = false;
+                        isPlayer1Turn = true;
+                        player1.tankState = Tank.TankState.Aiming;
+                        player2.tankState = Tank.TankState.Idle;
+                    }
+                }
             }
         }
 
@@ -149,30 +163,64 @@ namespace GameStateManagement
             }
             else
             {
-                // Otherwise move the player position.
-                Vector2 movement = Vector2.Zero;
+                if (input.IsTankFire(ControllingPlayer)) {
+                    if (isPlayer1Turn)
+                    {
+                        player1.fireMissile();
+                    }
+                    else
+                    {
+                        player2.fireMissile();
+                    }
+                }
 
-                if (keyboardState.IsKeyDown(Keys.Left))
-                    movement.X--;
+                if (input.IsTankMovingLeft(ControllingPlayer))
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.moveTank("Left");
+                    }
+                    else
+                    {
+                        player2.moveTank("Left");
+                    }
+                }
 
-                if (keyboardState.IsKeyDown(Keys.Right))
-                    movement.X++;
+                if (input.IsTankMovingRight(ControllingPlayer))
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.moveTank("Right");
+                    }
+                    else
+                    {
+                        player2.moveTank("Right");
+                    }
+                }
 
-                if (keyboardState.IsKeyDown(Keys.Up))
-                    movement.Y--;
+                if (input.IsAimUp(ControllingPlayer))
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.changeAim("Up");
+                    }
+                    else
+                    {
+                        player2.changeAim("Up");
+                    }
+                }
 
-                if (keyboardState.IsKeyDown(Keys.Down))
-                    movement.Y++;
-
-                Vector2 thumbstick = gamePadState.ThumbSticks.Left;
-
-                movement.X += thumbstick.X;
-                movement.Y -= thumbstick.Y;
-
-                if (movement.Length() > 1)
-                    movement.Normalize();
-
-                playerPosition += movement * 2;
+                if (input.IsAimDown(ControllingPlayer))
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.changeAim("Down");
+                    }
+                    else
+                    {
+                        player2.changeAim("Down");
+                    }
+                }
             }
         }
 
@@ -191,7 +239,8 @@ namespace GameStateManagement
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(player.texture, player.worldPosition, Color.White);
+            spriteBatch.Draw(player1.texture, player1.worldPosition, Color.White);
+            spriteBatch.Draw(player2.texture, player2.worldPosition, Color.White);
 
             spriteBatch.End();
 
