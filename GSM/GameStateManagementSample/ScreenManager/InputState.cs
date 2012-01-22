@@ -48,7 +48,10 @@ namespace GameStateManagement
             Number,
             Reset,
             Pause,
-            Resume
+            Resume,
+            Up,
+            Down,
+            Movement
         }
 
         public int myAngle;
@@ -213,7 +216,8 @@ namespace GameStateManagement
 
             return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.DPadUp, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex);
+                   IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex) ||
+                   currentVoiceCommand == voiceCommandStates.Up;
         }
 
 
@@ -228,7 +232,8 @@ namespace GameStateManagement
 
             return IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.DPadDown, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex);
+                   IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex) ||
+                   currentVoiceCommand == voiceCommandStates.Down;
         }
 
 
@@ -251,8 +256,13 @@ namespace GameStateManagement
         {
             PlayerIndex playerIndex;
 
-            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) ||
-                    currentVoiceCommand == voiceCommandStates.Fire;
+            if (currentVoiceCommand == voiceCommandStates.Fire)
+            {
+
+            }
+
+
+            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex);
         }
 
         public bool IsTankMovingLeft(PlayerIndex? controllingPlayer)
