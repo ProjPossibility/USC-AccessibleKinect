@@ -18,13 +18,10 @@ namespace SS12Game
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Skeletion cursor;
-
+        
         public Game1()
         {
             Vocal voiceCommand = new Vocal();
-            cursor = new Skeletion(this);
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             //Initialize();
@@ -39,9 +36,7 @@ namespace SS12Game
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            cursor.Initialize(1.0f, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-
-            base.Initialize();
+            
         }
 
         /// <summary>
@@ -50,12 +45,6 @@ namespace SS12Game
         /// </summary>
         protected override void LoadContent()
         {
-
-            cursor.CreateEvent();
-            //datTexture = Content.Load<Texture2D>("hand.png");
-            // Create a new SpriteBatch, which can be used to draw textures.
-            //spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
         }
 
@@ -92,11 +81,6 @@ namespace SS12Game
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //spriteBatch.Begin();
-            
-            Rectangle drawMe = new Rectangle(Convert.ToInt32(cursor.Position.X), Convert.ToInt32(cursor.Position.Y), 50, 60);
-           //spriteBatch.End();
-            
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

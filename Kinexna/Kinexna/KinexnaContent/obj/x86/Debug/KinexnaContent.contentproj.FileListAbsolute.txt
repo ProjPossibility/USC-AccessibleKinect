@@ -1,1 +1,2 @@
 C:\Users\crimzon\Desktop\Kinexna\Kinexna\KinexnaContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\KinexnaContent\obj\x86\Debug\ResolveAssemblyReference.cache

@@ -8,3 +8,13 @@ C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\obj\x86\Debug\ResolveAssemblyRe
 C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\obj\x86\Debug\Kinexna.exe
 C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\obj\x86\Debug\Kinexna.pdb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\Ship.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\ShipDiffuse.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\Segoe.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\ShipDiffuse_0.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Kinexna.exe
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Kinexna.pdb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\obj\x86\Debug\Kinexna.exe
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\obj\x86\Debug\Kinexna.pdb

@@ -7,13 +7,13 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\Ship.xnb</Output>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\Ship.xnb</Output>
       <Time>2011-06-06T11:52:26-07:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Ship_0.xml</Key>
-        <Value>2012-01-21T20:30:04.2398098-08:00</Value>
+        <Value>2012-01-22T10:21:19.5632178-08:00</Value>
       </Dependency>
-      <Request>C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\ShipDiffuse_0.xnb</Request>
+      <Request>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\ShipDiffuse_0.xnb</Request>
     </Item>
     <Item>
       <Source>ShipDiffuse.tga</Source>
@@ -21,7 +21,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\ShipDiffuse.xnb</Output>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\ShipDiffuse.xnb</Output>
       <Time>2011-06-06T11:52:26-07:00</Time>
     </Item>
     <Item>
@@ -30,7 +30,7 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\Segoe.xnb</Output>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\Segoe.xnb</Output>
       <Time>2011-06-06T18:40:22-07:00</Time>
     </Item>
     <Item>
@@ -53,7 +53,7 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\ShipDiffuse_0.xnb</Output>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\ShipDiffuse_0.xnb</Output>
       <Time>2011-06-06T11:52:26-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
@@ -62,10 +62,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\crimzon\Desktop\Kinexna\Kinexna\KinexnaContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\crimzon\Desktop\Kinexna\Kinexna\KinexnaContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\crimzon\Desktop\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\KinexnaContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\KinexnaContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

@@ -103,41 +103,33 @@ namespace Kinexna
                 {
                     if (player1)
                     {
-                        Vector2 leftHand = Vector2.Zero;
-                        Vector2 leftElbow = Vector2.Zero;
-
+                        
                         foreach (Joint joint in data.Joints)
                         {
                             if (joint.ID == JointID.HandLeft)
                             {
-                                leftHand = joint.Position.ToVector2();
+                                player1LeftHand = joint.Position.ToVector2();
                             }
                             else if (joint.ID == JointID.ElbowLeft)
                             {
-                                leftElbow = joint.Position.ToVector2();
+                                player1LeftElbow = joint.Position.ToVector2();
                             }
                         }
-                        player1LeftElbow = leftElbow;
-                        player1LeftHand = leftHand;
                     }
                     else
                     {
-                        Vector2 rightHand = Vector2.Zero;
-                        Vector2 rightElbow = Vector2.Zero;
-
+                        
                         foreach (Joint joint in data.Joints)
                         {
-                            if (joint.ID == JointID.HandLeft)
+                            if (joint.ID == JointID.HandRight)
                             {
-                                rightHand = joint.Position.ToVector2();
+                                player2RightHand = joint.Position.ToVector2();
                             }
-                            else if (joint.ID == JointID.ElbowLeft)
+                            else if (joint.ID == JointID.ElbowRight)
                             {
-                                rightElbow = joint.Position.ToVector2();
+                                player2RightElbow = joint.Position.ToVector2();
                             }
                         }
-                        player2RightHand = rightHand;
-                        player2RightElbow = rightElbow;
                     }
                     /*Vector3 diffVector = (leftHand - rightHand);
                     float horizontalDistance = Math.Abs(diffVector.X);
@@ -213,17 +205,17 @@ namespace Kinexna
 
                     oldHorizontalDistance = horizontalDistance;*/
                 }
-                player1 = !player1;
+               player1 = !player1;
             }
-            return;
+           return;
         }
 
         protected override void LoadContent()
         {
-            /*spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            ship = Content.Load<Model>("Ship");
-            font = Content.Load<SpriteFont>("Segoe");*/
+            //ship = Content.Load<Model>("Ship");
+            font = Content.Load<SpriteFont>("Segoe");
         }
 
         protected override void Draw(GameTime gameTime)
@@ -275,10 +267,47 @@ namespace Kinexna
 
                 base.Draw(gameTime);
             }*/
-            spriteBatch.DrawString(font, "Player 1 Left Hand", player1LeftHand, Color.Aquamarine);
-            spriteBatch.DrawString(font, "Player 1 Left Elbow", player1LeftElbow, Color.Aquamarine);
-            spriteBatch.DrawString(font, "Player 1 Right Hand", player2RightHand, Color.DarkGoldenrod);
-            spriteBatch.DrawString(font, "Player 1 Right Elbow", player2RightElbow, Color.DarkGoldenrod);
+            try
+            {
+                Console.WriteLine(player1LeftHand.X + " Before p1 Hand " + player1LeftHand.Y);
+                Console.WriteLine(player1LeftElbow.X + " Before p1 Elbow " + player1LeftElbow.Y);
+                player1LeftHand.X = (player1LeftHand.X + 1) *(GraphicsDevice.Viewport.Width/2);
+                player1LeftHand.Y = (-1 * player1LeftHand.Y + 1) * (GraphicsDevice.Viewport.Height/2);
+                player1LeftElbow.X = (player1LeftElbow.X + 1) * (GraphicsDevice.Viewport.Width / 2);
+                player1LeftElbow.Y = (-1 * player1LeftElbow.Y + 1) * (GraphicsDevice.Viewport.Height / 2);
+                Console.WriteLine(player1LeftHand.X + " After p1 Hand " + player1LeftHand.Y);
+                Console.WriteLine(player1LeftElbow.X + " After p1 Elbow " + player1LeftElbow.Y);
+
+                Console.WriteLine(player2RightHand.X + " Before p2 Hand " + player2RightHand.Y);
+                Console.WriteLine(player2RightElbow.X + " Before p2 Elbow " + player2RightElbow.Y);
+                player2RightHand.X = (player2RightHand.X + 1) * (GraphicsDevice.Viewport.Width / 2);
+                player2RightHand.Y = (-1 * player2RightHand.Y + 1) * (GraphicsDevice.Viewport.Height / 2);
+                player2RightElbow.X = (player2RightElbow.X + 1) * (GraphicsDevice.Viewport.Width / 2);
+                player2RightElbow.Y = (-1 * player2RightElbow.Y + 1) * (GraphicsDevice.Viewport.Height / 2);
+                Console.WriteLine(player2RightHand.X + " After p2 Hand " + player2RightHand.Y);
+                Console.WriteLine(player2RightElbow.X + " After p2 Elbow " + player2RightElbow.Y);
+
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+                spriteBatch.DrawString(font, "P1LH", player1LeftHand, Color.Aquamarine);
+                spriteBatch.DrawString(font, "P1LE", player1LeftElbow, Color.Aquamarine);
+                spriteBatch.DrawString(font, "P2RH", player2RightHand, Color.DarkGoldenrod);
+                spriteBatch.DrawString(font, "P2RE", player2RightElbow, Color.DarkGoldenrod);
+
+                spriteBatch.End();
+                player1LeftHand.X = (player1LeftHand.X / (GraphicsDevice.Viewport.Width / 2)) - 1;
+                player1LeftHand.Y = -1 * ((player1LeftHand.Y / (GraphicsDevice.Viewport.Height / 2)) - 1);
+                player1LeftElbow.X = (player1LeftElbow.X / (GraphicsDevice.Viewport.Width / 2)) - 1;
+                player1LeftElbow.Y = -1 * ((player1LeftElbow.Y / (GraphicsDevice.Viewport.Height / 2)) - 1);
+
+                player2RightHand.X = (player2RightHand.X / (GraphicsDevice.Viewport.Width / 2)) - 1;
+                player2RightHand.Y = -1 * ((player2RightHand.Y / (GraphicsDevice.Viewport.Height / 2)) - 1);
+                player2RightElbow.X = (player2RightElbow.X / (GraphicsDevice.Viewport.Width / 2)) - 1;
+                player2RightElbow.Y = -1 * ((player2RightElbow.Y / (GraphicsDevice.Viewport.Height / 2)) - 1);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
