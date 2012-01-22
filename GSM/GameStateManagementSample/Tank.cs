@@ -78,7 +78,7 @@ namespace GameStateManagement
 
             //Set-up Cannon
             shotAngle = 0;
-            force = 0;
+            force = 10;
             contentManager = new ContentManager(Game.Services, "Content");
             cannonTexture = contentManager.Load<Texture2D>("Cannon");
             cannonLocation = new Vector2((worldPosition.X + 50), (worldPosition.Y + 10));
@@ -98,16 +98,12 @@ namespace GameStateManagement
             isActive = false;
         }
 
-        public void fireMissile()
+        public void fireMissile(Projectile newMissile)
         {
             if (tankState != TankState.Idle || tankState != TankState.Firing)
             {
-                //You fired a projectile!
-                missile = new Projectile(curGame, "Missile", 
-                   new Vector2((float)(Math.Cos((double)shotAngle) * cannonTexture.Height), (float)(Math.Sin((double)shotAngle) * cannonTexture.Height)), force);
-
-                //actorTimer = new Utils.Timer();
-                //actorTimer.AddTimer("Fake Projectile", 4.0f, endCannonShot, false);
+                //You fired a projectile
+                missile = newMissile;
                 tankState = TankState.Firing;
             }
         }
@@ -151,7 +147,14 @@ namespace GameStateManagement
             //projectile.Draw(gameTime, spriteBatch);
             if (missile != null)
             {
-                spriteBatch.Draw(missile.texture, missile.worldPosition, Color.White);
+                if (missile.texture != null)
+                {
+                    spriteBatch.Draw(missile.texture, missile.worldPosition, null,
+                    Color.White, missile.projectileRotation,
+                    new Vector2(missile.texture.Width / 2,
+                            missile.texture.Height / 2),
+                    1.0f, SpriteEffects.None, 0);
+                }
             }
             base.Draw(gameTime);
         }

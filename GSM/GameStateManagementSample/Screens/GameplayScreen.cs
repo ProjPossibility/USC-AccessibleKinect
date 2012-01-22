@@ -202,11 +202,18 @@ namespace GameStateManagement
                 if (input.IsTankFire(ControllingPlayer)) {
                     if (isPlayer1Turn)
                     {
-                        player1.fireMissile();
+                        double missileAngle = ((player1.shotAngle * (90 / 1.6)) * (Math.PI / 180));
+                        Projectile missile = new Projectile(ScreenManager.Game, 
+                            new Vector2((float)(Math.Cos(missileAngle) * player1.cannonTexture.Height) + player1.cannonLocation.X, (float)(Math.Sin(missileAngle) * player1.cannonTexture.Height) + player1.cannonLocation.Y - player1.texture.Height), player1.force);
+                        player1.fireMissile(missile);
+                        ScreenManager.Game.Components.Add(missile);
                     }
                     else
                     {
-                        player2.fireMissile();
+                        Projectile missile = new Projectile(ScreenManager.Game,
+                           new Vector2((float)(Math.Cos((double)player2.shotAngle) * player2.cannonTexture.Height) + player2.cannonLocation.X, (float)(Math.Sin((double)player2.shotAngle) * player2.cannonTexture.Height) - player2.cannonLocation.Y), player2.force);
+                        player2.fireMissile(missile);
+                        ScreenManager.Game.Components.Add(missile);
                     }
                 }
 
