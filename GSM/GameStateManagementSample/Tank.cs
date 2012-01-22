@@ -21,7 +21,6 @@ namespace GameStateManagement
         public Projectile cannonShot;
 
         public bool isActive;
-        public bool AnimationRunning;
         public enum TankState
         {
             Idle,
@@ -29,7 +28,15 @@ namespace GameStateManagement
             Reset
         }
 
+        public enum TankMovementState
+        {
+            Idle,
+            MovingLeft,
+            MovingRight
+        }
+
         public TankState tankState;
+        public TankMovementState moveState;
 
         bool myBHuman;
         public bool bHuman
@@ -63,6 +70,7 @@ namespace GameStateManagement
         {
             textureName = "Tank";
             tankState = TankState.Idle;
+            moveState = TankMovementState.Idle;
 
             //Set-up Cannon
             shotAngle = 0;
@@ -104,10 +112,12 @@ namespace GameStateManagement
                 if (direction == "Left")
                 {
                     worldPosition.X -= 10;
+                    moveState = TankMovementState.MovingLeft;
                 }
                 else
                 {
                     worldPosition.X += 10;
+                    moveState = TankMovementState.MovingRight;
                 }
             }
         }
@@ -130,7 +140,7 @@ namespace GameStateManagement
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, worldPosition, Color.White);
-            spriteBatch.Draw(cannonTexture, cannonLocation, null, Color.White, shotAngle, new Vector2(10, 60), 1, SpriteEffects.FlipVertically, 0);
+            spriteBatch.Draw(cannonTexture, cannonLocation, null, Color.White, shotAngle, new Vector2(10, 60), 1, SpriteEffects.FlipVertically, 1);
             //projectile.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
         }

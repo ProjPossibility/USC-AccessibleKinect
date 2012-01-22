@@ -49,7 +49,7 @@ namespace GameStateManagement
             Content.RootDirectory = "Content";
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferWidth = 1260;
             graphics.PreferredBackBufferHeight = 860;
 
             // Create the screen manager component.
@@ -85,7 +85,7 @@ namespace GameStateManagement
         /// </summary>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.Black);
+            graphics.GraphicsDevice.Clear(Color.Violet);
 
             // The real drawing happens inside the screen manager component.
             base.Draw(gameTime);

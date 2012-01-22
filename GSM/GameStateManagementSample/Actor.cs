@@ -49,9 +49,15 @@ namespace GameStateManagement
 
         public override void Draw(GameTime gameTime)
         {
-
             base.Draw(gameTime);
+        }
 
+        public bool intersects(Rectangle otherFrame)
+        {
+            if (texture.Bounds.Intersects(otherFrame))
+            {
+                return true;
+            } return false;
         }
     }
 }

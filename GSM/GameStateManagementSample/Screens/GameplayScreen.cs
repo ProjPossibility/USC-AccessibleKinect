@@ -38,6 +38,11 @@ namespace GameStateManagement
 
         SpriteFont gameFont;
 
+        //Background environment
+        Texture2D world;
+        Texture2D mountain;
+        Vector2 mountainPosition;
+
         float pauseAlpha;
 
         #endregion
@@ -75,6 +80,10 @@ namespace GameStateManagement
 
             player2 = new Tank(ScreenManager.Game, "Player2");
             ScreenManager.Game.Components.Add(player2);
+
+            world = content.Load<Texture2D>("world");
+            mountain = content.Load<Texture2D>("Mountain");
+            mountainPosition = new Vector2(450, 475);
 
             isPlayer1Turn = true;
         }
@@ -142,6 +151,16 @@ namespace GameStateManagement
                     isPlayer1Turn = false;
                     player1.tankState = Tank.TankState.Idle;
                     player2.tankState = Tank.TankState.Aiming;
+                }
+
+                //Collision
+                if(player1.intersects(mountain.Bounds) && (player1.moveState == Tank.TankMovementState.MovingRight)) {
+                    player1.worldPosition = new Vector2((mountainPosition.X - player1.texture.Width), player1.worldPosition.Y);
+                }
+
+                if (player2.intersects(mountain.Bounds) && (player2.moveState == Tank.TankMovementState.MovingLeft))
+                {
+                    player2.worldPosition = new Vector2((mountainPosition.X + mountain.Width), player2.worldPosition.Y);
                 }
             }
         }
@@ -233,6 +252,9 @@ namespace GameStateManagement
                         player2.changeAim("Down");
                     }
                 }
+
+                //Collision!
+                //if(player1.texture.Bounds.Intersects()
             }
         }
 
@@ -251,8 +273,9 @@ namespace GameStateManagement
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(gameFont, player1.isActive.ToString(), new Vector2(100, 100), Color.White);
-            spriteBatch.DrawString(gameFont, player2.isActive.ToString(), new Vector2(100, 200), Color.White);
+            ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.Violet, 0, 0);
+            DrawBackground(spriteBatch);
+            DrawHUD(spriteBatch);
             player1.Draw(gameTime, spriteBatch);
             player2.Draw(gameTime, spriteBatch);
 
@@ -267,6 +290,17 @@ namespace GameStateManagement
             }
         }
 
+        public void DrawBackground(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(world, new Rectangle(0, 700, 1260, 500), Color.White);
+            spriteBatch.Draw(mountain, mountainPosition, Color.White);
+        }
+
+        public void DrawHUD(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(gameFont, "Player 1", new Vector2(100, 100), Color.Blue);
+            spriteBatch.DrawString(gameFont, "Player 2", new Vector2(1000, 100), Color.Red);
+        }
 
         #endregion
     }

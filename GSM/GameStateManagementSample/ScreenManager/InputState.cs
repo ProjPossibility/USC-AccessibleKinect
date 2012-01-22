@@ -242,16 +242,16 @@ namespace GameStateManagement
         {
             PlayerIndex playerIndex;
 
-            return IsNewKeyPress(Keys.Left, controllingPlayer, out playerIndex) ||
-                   IsKeyHeld(Keys.Left);
+            return IsNewKeyPress(Keys.Left, controllingPlayer, out playerIndex);
+            //  || IsKeyHeld(Keys.Left);
         }
 
         public bool IsTankMovingRight(PlayerIndex? controllingPlayer)
         {
             PlayerIndex playerIndex;
 
-            return IsNewKeyPress(Keys.Right, controllingPlayer, out playerIndex) ||
-                   IsKeyHeld(Keys.Right);
+            return IsNewKeyPress(Keys.Right, controllingPlayer, out playerIndex);
+            // || IsKeyHeld(Keys.Right);
         }
 
         public bool IsAimUp(PlayerIndex? controllingPlayer)
