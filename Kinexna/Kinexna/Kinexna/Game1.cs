@@ -269,23 +269,23 @@ namespace Kinexna
             }*/
             try
             {
-                Console.WriteLine(player1LeftHand.X + " Before p1 Hand " + player1LeftHand.Y);
-                Console.WriteLine(player1LeftElbow.X + " Before p1 Elbow " + player1LeftElbow.Y);
+                //Console.WriteLine(player1LeftHand.X + " Before p1 Hand " + player1LeftHand.Y);
+                //Console.WriteLine(player1LeftElbow.X + " Before p1 Elbow " + player1LeftElbow.Y);
                 player1LeftHand.X = (player1LeftHand.X + 1) *(GraphicsDevice.Viewport.Width/2);
                 player1LeftHand.Y = (-1 * player1LeftHand.Y + 1) * (GraphicsDevice.Viewport.Height/2);
                 player1LeftElbow.X = (player1LeftElbow.X + 1) * (GraphicsDevice.Viewport.Width / 2);
                 player1LeftElbow.Y = (-1 * player1LeftElbow.Y + 1) * (GraphicsDevice.Viewport.Height / 2);
-                Console.WriteLine(player1LeftHand.X + " After p1 Hand " + player1LeftHand.Y);
-                Console.WriteLine(player1LeftElbow.X + " After p1 Elbow " + player1LeftElbow.Y);
+                //Console.WriteLine(player1LeftHand.X + " After p1 Hand " + player1LeftHand.Y);
+                //Console.WriteLine(player1LeftElbow.X + " After p1 Elbow " + player1LeftElbow.Y);
 
-                Console.WriteLine(player2RightHand.X + " Before p2 Hand " + player2RightHand.Y);
-                Console.WriteLine(player2RightElbow.X + " Before p2 Elbow " + player2RightElbow.Y);
+                //Console.WriteLine(player2RightHand.X + " Before p2 Hand " + player2RightHand.Y);
+                //Console.WriteLine(player2RightElbow.X + " Before p2 Elbow " + player2RightElbow.Y);
                 player2RightHand.X = (player2RightHand.X + 1) * (GraphicsDevice.Viewport.Width / 2);
                 player2RightHand.Y = (-1 * player2RightHand.Y + 1) * (GraphicsDevice.Viewport.Height / 2);
                 player2RightElbow.X = (player2RightElbow.X + 1) * (GraphicsDevice.Viewport.Width / 2);
                 player2RightElbow.Y = (-1 * player2RightElbow.Y + 1) * (GraphicsDevice.Viewport.Height / 2);
-                Console.WriteLine(player2RightHand.X + " After p2 Hand " + player2RightHand.Y);
-                Console.WriteLine(player2RightElbow.X + " After p2 Elbow " + player2RightElbow.Y);
+                //Console.WriteLine(player2RightHand.X + " After p2 Hand " + player2RightHand.Y);
+                //Console.WriteLine(player2RightElbow.X + " After p2 Elbow " + player2RightElbow.Y);
 
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
                 spriteBatch.DrawString(font, "P1LH", player1LeftHand, Color.Aquamarine);
