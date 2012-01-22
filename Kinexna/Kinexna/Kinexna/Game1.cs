@@ -30,6 +30,8 @@ namespace Kinexna
 
         float oldHorizontalDistance;
         float rightHandReference;
+        float player1Theta = 0;
+        float player2Theta = 0;
 
         float rotationAngle;
         float zoom = 1.0f;
@@ -115,6 +117,9 @@ namespace Kinexna
                                 player1LeftElbow = joint.Position.ToVector2();
                             }
                         }
+
+                        player1Theta = (float)Math.Atan( ( (player1LeftHand.Y - player1LeftElbow.Y) / (player1LeftHand.X - player1LeftElbow.X) ));
+
                     }
                     else
                     {
@@ -130,6 +135,7 @@ namespace Kinexna
                                 player2RightElbow = joint.Position.ToVector2();
                             }
                         }
+                        player2Theta = (float)Math.Atan(((player2RightHand.Y - player2RightElbow.Y) / (player2RightHand.X - player2RightElbow.X)));
                     }
                     /*Vector3 diffVector = (leftHand - rightHand);
                     float horizontalDistance = Math.Abs(diffVector.X);
