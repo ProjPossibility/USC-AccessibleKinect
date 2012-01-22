@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\hand.xnb</Output>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\hand.xnb</Output>
       <Time>2011-11-25T10:09:06-08:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
@@ -16,10 +16,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1Content\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

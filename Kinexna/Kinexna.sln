@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinexna", "Kinexna\Kinexna\Kinexna.csproj", "{90265B40-1029-4CD9-AD1B-8D25191C6799}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinexnaContent", "Kinexna\KinexnaContent\KinexnaContent.contentproj", "{61C3B88C-23BA-465D-9928-472BA0C72DBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFImpostor", "WPFImpostor\WPFImpostor.csproj", "{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://mixer.dyndns.ws:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Kinexna\\Kinexna\\Kinexna.csproj
+		SccProjectName1 = Kinexna/Kinexna
+		SccLocalPath1 = Kinexna\\Kinexna
+		SccProjectUniqueName2 = Kinexna\\KinexnaContent\\KinexnaContent.contentproj
+		SccProjectName2 = Kinexna/KinexnaContent
+		SccLocalPath2 = Kinexna\\KinexnaContent
+		SccProjectUniqueName3 = WPFImpostor\\WPFImpostor.csproj
+		SccProjectName3 = WPFImpostor
+		SccLocalPath3 = WPFImpostor
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Debug|x86.ActiveCfg = Debug|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Debug|x86.Build.0 = Debug|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Release|Any CPU.ActiveCfg = Release|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Release|Mixed Platforms.Build.0 = Release|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Release|x86.ActiveCfg = Release|x86
+		{90265B40-1029-4CD9-AD1B-8D25191C6799}.Release|x86.Build.0 = Release|x86
+		{61C3B88C-23BA-465D-9928-472BA0C72DBA}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{61C3B88C-23BA-465D-9928-472BA0C72DBA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{61C3B88C-23BA-465D-9928-472BA0C72DBA}.Debug|x86.ActiveCfg = Debug|x86
+		{61C3B88C-23BA-465D-9928-472BA0C72DBA}.Release|Any CPU.ActiveCfg = Release|x86
+		{61C3B88C-23BA-465D-9928-472BA0C72DBA}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{61C3B88C-23BA-465D-9928-472BA0C72DBA}.Release|x86.ActiveCfg = Release|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Debug|x86.ActiveCfg = Debug|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Debug|x86.Build.0 = Debug|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Release|Any CPU.ActiveCfg = Release|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Release|Mixed Platforms.Build.0 = Release|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Release|x86.ActiveCfg = Release|x86
+		{44E610CE-A88A-4F02-A2CA-697A7BEE74CF}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

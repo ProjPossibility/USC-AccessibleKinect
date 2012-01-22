@@ -29,3 +29,10 @@ C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\Wind
 C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.exe
 C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.pdb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\hand.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\bin\x86\Debug\WindowsGame1.exe
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\bin\x86\Debug\WindowsGame1.pdb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.exe
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.pdb

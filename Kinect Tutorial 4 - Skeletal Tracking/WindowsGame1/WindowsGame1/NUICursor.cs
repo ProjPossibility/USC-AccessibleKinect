@@ -19,7 +19,7 @@ namespace WindowsGame1
     {
 
         Runtime kinectSensor = new Runtime();
-
+        Boolean isHandNotElbow;
 
         GraphicsDevice device;
         Vector2 position = new Vector2(0.0f);
@@ -47,10 +47,11 @@ namespace WindowsGame1
         public NUICursor(Game game)
             : base(game)
         {
-        }
+         }
 
-        public void Initialize(float scale, int width, int height)
+        public void Initialize(float scale, int width, int height, Boolean temp)
         {
+            isHandNotElbow = temp;
             resolution = new Vector2((float)width, (float)height);
             this.scale = scale;
             try
@@ -84,18 +85,58 @@ namespace WindowsGame1
 
         void kinectSensor_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
-            SkeletonFrame allSkeletons = e.SkeletonFrame;
-            SkeletonData playerSkeleton = (from s in allSkeletons.Skeletons where s.TrackingState == SkeletonTrackingState.Tracked select s).FirstOrDefault();
-            Joint rightHandJoint = playerSkeleton.Joints[JointID.HandRight];
-
-            try
+           // SkeletonFrame allSkeletons = e.SkeletonFrame;
+            //SkeletonData playerSkeleton = (from s in allSkeletons.Skeletons where s.TrackingState == SkeletonTrackingState.Tracked select s).FirstOrDefault();
+           /* if (playerSkeleton != null)
             {
-                position = new Vector2((((0.5f * rightHandJoint.Position.X) + 0.5f) * (resolution.X)), (((-0.5f * rightHandJoint.Position.Y) + 0.5f) * (resolution.Y)));
-            }
-            catch
-            {
-            }
+                if (isHandNotElbow == true)
+                {
+                    Joint rightHandJoint = playerSkeleton.Joints[JointID.HandRight];
+                    try
+                    {
+                        position = new Vector2((((0.5f * rightHandJoint.Position.X) + 0.5f) * (resolution.X)), (((-0.5f * rightHandJoint.Position.Y) + 0.5f) * (resolution.Y)));
+                    }
+                    catch
+                    {
+                    }
+                }
+                else
+                {
+                    Joint rightElbowJoint = playerSkeleton.Joints[JointID.ElbowRight];
+                    try
+                    {
+                        position = new Vector2((((0.5f * rightElbowJoint.Position.X) + 0.5f) * (resolution.X)), (((-0.5f * rightElbowJoint.Position.Y) + 0.5f) * (resolution.Y)));
+                    }
+                    catch
+                    {
+                    }
+                }
 
+   
+            }*/
+            /*SkeletonFrame skeletonFrame = e.SkeletonFrame;
+            foreach (SkeletonData data in skeletonFrame.Skeletons)
+            {
+                if (data.TrackingState == SkeletonTrackingState.Tracked)
+                {
+                    foreach (Joint joint in data.Joints)
+                    {
+                        switch (joint.ID)
+                        {
+                            case JointID.HandLeft:
+                                if (joint.Position.W > .6f)
+                                    leftHandGestureRecognizer.Add(joint.Position.ToVector3());
+                                break;
+                            case JointID.HandRight:
+                                if (joint.Position.W > .6f)
+                                    rightHandGestureRecognizer.Add(joint.Position.ToVector3());
+                                break;
+
+                        }
+                    }
+                    return;
+                }
+            }*/
         }
     }
 }

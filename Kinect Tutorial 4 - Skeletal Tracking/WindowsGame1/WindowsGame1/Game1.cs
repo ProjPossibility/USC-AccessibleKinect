@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Research.Kinect.Nui;
 
 namespace WindowsGame1
 {
@@ -22,8 +23,12 @@ namespace WindowsGame1
         Texture2D handCursor;
 
         Vector2 rightHandPosition = new Vector2(0.0f);
+        Vector3 leftHand = Vector3.Zero;
+        Vector3 rightHand = Vector3.Zero;
+        Vector3 head = Vector3.Zero;
 
-        NUICursor cursor;
+        //NUICursor cursorHand,cursorElbow;
+
 
         bool useMouse = false;
 
@@ -33,7 +38,9 @@ namespace WindowsGame1
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            cursor = new NUICursor(this);
+            //cursorHand = new NUICursor(this);
+            //cursorElbow = new NUICursor(this);
+           
         }
 
         /// <summary>
@@ -45,8 +52,8 @@ namespace WindowsGame1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            cursor.Initialize(1.0f, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-
+            //cursorHand.Initialize(1.0f, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, true);
+            //cursorElbow.Initialize(1.0f, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, false);
             base.Initialize();
         }
 
@@ -58,10 +65,10 @@ namespace WindowsGame1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             handCursor = Content.Load<Texture2D>("hand");
 
-            cursor.CreateEvent();
+            //cursorHand.CreateEvent();
+            //cursorElbow.CreateEvent();
 
             // TODO: use this.Content to load your game content here
         }
@@ -91,6 +98,45 @@ namespace WindowsGame1
             base.Update(gameTime);
         }
 
+        public void OnSkeletonFrameReady(Microsoft.Research.Kinect.Nui.SkeletonFrameReadyEventArgs e)
+        {
+            Microsoft.Research.Kinect.Nui.SkeletonFrame skeletonFrame = e.SkeletonFrame;
+
+            foreach (Microsoft.Research.Kinect.Nui.SkeletonData data in skeletonFrame.Skeletons)
+            {
+                if (data.TrackingState == Microsoft.Research.Kinect.Nui.SkeletonTrackingState.Tracked)
+                {
+                    Vector3 leftHand = Vector3.Zero;
+                    Vector3 rightHand = Vector3.Zero;
+                    Vector3 head = Vector3.Zero;
+
+                    foreach (Microsoft.Research.Kinect.Nui.Joint joint in data.Joints)
+                    {
+                        if (joint.ID == JointID.HandLeft)
+                        {
+                            leftHand = ToVector3(joint.Position);
+                            Console.WriteLine("Found Left Hand\n");
+                        }
+                        else if (joint.ID == JointID.HandRight)
+                        {
+                            rightHand = ToVector3(joint.Position);
+                            Console.WriteLine("Found Right Hand\n");
+                        }
+                        else if (joint.ID == JointID.Head)
+                        {
+                            head = ToVector3(joint.Position);
+                            Console.WriteLine("Found Head");
+                        }
+                    }
+                }
+            }
+        }
+
+        private Vector3 ToVector3(Vector vector)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -100,7 +146,11 @@ namespace WindowsGame1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(handCursor, new Rectangle(Convert.ToInt32(cursor.Position.X), Convert.ToInt32(cursor.Position.Y), 50, 60), Color.White);
+            spriteBatch.Draw(handCursor, new Rectangle(Convert.ToInt32(leftHand.X), Convert.ToInt32(leftHand.Y), 50, 60), Color.White);
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(handCursor, new Rectangle(Convert.ToInt32(rightHand.X), Convert.ToInt32(rightHand.Y), 50, 60), Color.Black);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
