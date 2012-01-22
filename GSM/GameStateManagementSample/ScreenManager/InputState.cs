@@ -259,7 +259,7 @@ namespace GameStateManagement
             PlayerIndex playerIndex;
 
             return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
-                   IsKeyHeld(Keys.Down);
+                   IsKeyHeld(Keys.Up);
         }
 
         public bool IsAimDown(PlayerIndex? controllingPlayer)

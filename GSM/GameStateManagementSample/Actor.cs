@@ -18,7 +18,7 @@ namespace GameStateManagement
         public Vector2 worldPosition;
         protected String textureName;
         public Texture2D texture;
-        ContentManager contentManager;
+        protected ContentManager contentManager;
 
         public Actor(Game game)
             : base(game)

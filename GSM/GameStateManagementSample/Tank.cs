@@ -14,7 +14,12 @@ namespace GameStateManagement
 {
     class Tank : Actor
     {
+        //Cannon related variables
         float shotAngle;
+        public Vector2 cannonLocation;
+        public Texture2D cannonTexture;
+        public Projectile cannonShot;
+
         public bool isActive;
         public bool AnimationRunning;
         public enum TankState
@@ -38,52 +43,96 @@ namespace GameStateManagement
                 myBHuman = value;
             }
         }
-        public Tank(Game game)
+
+        public Tank(Game game, string playerType)
             : base(game)
         {
-            
+            if (playerType == "Player1")
+            {
+                worldPosition = new Vector2(100, 600);
+            }
+            else
+            {
+                worldPosition = new Vector2(1000, 600);
+            }
+
+            isActive = false;
         }
 
         public override void Initialize()
         {
             textureName = "Tank";
-            worldPosition = new Vector2(100, 100);
             tankState = TankState.Idle;
+
+            //Set-up Cannon
+            shotAngle = 0;
+            contentManager = new ContentManager(Game.Services, "Content");
+            cannonTexture = contentManager.Load<Texture2D>("Cannon");
+            cannonLocation = new Vector2((worldPosition.X + 110), (worldPosition.Y + 10));
+
             base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
+            cannonLocation = new Vector2((worldPosition.X + 110), (worldPosition.Y + 10));
             base.Update(gameTime);
+        }
+
+        public void endCannonShot()
+        {
+            isActive = false;
         }
 
         public void fireMissile()
         {
+            if (tankState != TankState.Idle)
+            {
+                //You fired a projectile!
+                cannonShot = new Projectile();
 
+                actorTimer = new Utils.Timer();
+                actorTimer.AddTimer("Fake Projectile", 4.0f, endCannonShot, false);
+                tankState = TankState.Idle;
+            }
         }
 
         public void moveTank(String direction)
         {
-            if (direction == "Left")
+            if (tankState != TankState.Idle)
             {
-                worldPosition.X -= 10;
-            }
-            else
-            {
-                worldPosition.X += 10;
+                if (direction == "Left")
+                {
+                    worldPosition.X -= 10;
+                }
+                else
+                {
+                    worldPosition.X += 10;
+                }
             }
         }
 
         public void changeAim(String angleDirection)
         {
-            if (angleDirection == "Down")
+            if (tankState != TankState.Idle)
             {
-                shotAngle -= 1;
+                if (angleDirection == "Down")
+                {
+                    shotAngle -= (float)0.1;
+                }
+                else
+                {
+                    shotAngle += (float)0.1;
+                }
             }
-            else
-            {
-                shotAngle += 1;
-            }
+        }
+
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, worldPosition, Color.White);
+            spriteBatch.Draw(cannonTexture, cannonLocation, null, Color.White, shotAngle, new Vector2(10, 60), 1, SpriteEffects.FlipVertically, 0);
+            //projectile.Draw(gameTime, spriteBatch);
+            base.Draw(gameTime);
         }
     }
 }

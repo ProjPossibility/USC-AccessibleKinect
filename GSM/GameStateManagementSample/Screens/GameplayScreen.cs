@@ -36,6 +36,8 @@ namespace GameStateManagement
 
         bool isPlayer1Turn;
 
+        SpriteFont gameFont;
+
         float pauseAlpha;
 
         #endregion
@@ -61,14 +63,17 @@ namespace GameStateManagement
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
+            gameFont = content.Load<SpriteFont>("gamefont");
+
             ScreenManager.Game.ResetElapsedTime();
 
-            player1 = new Tank(ScreenManager.Game);
+            player1 = new Tank(ScreenManager.Game, "Player1");
             ScreenManager.Game.Components.Add(player1);
             player1.tankState = Tank.TankState.Aiming;
 
+            player1.isActive = true;
 
-            player2 = new Tank(ScreenManager.Game);
+            player2 = new Tank(ScreenManager.Game, "Player2");
             ScreenManager.Game.Components.Add(player2);
 
             isPlayer1Turn = true;
@@ -107,29 +112,36 @@ namespace GameStateManagement
 
             if (IsActive)
             {
-                if ((player1.tankState == Tank.TankState.Reset ||
-                    player2.tankState == Tank.TankState.Reset) &&
-                       !(player1.AnimationRunning ||
-                        player2.AnimationRunning))
+                if (player1.isActive == false && player2.isActive == false)
                 {
-                    //Player 1's Turn just finished
-                    if (player1.isActive)
+                    if (isPlayer1Turn)
                     {
-                        player1.isActive = false;
-                        player2.isActive = true;
                         isPlayer1Turn = false;
-                        player1.tankState = Tank.TankState.Idle;
-                        player2.tankState = Tank.TankState.Aiming;
                     }
-                    //Player 2's Turn just finished
                     else
                     {
-                        player1.isActive = true;
-                        player2.isActive = false;
+                        //New Turn!
                         isPlayer1Turn = true;
-                        player1.tankState = Tank.TankState.Aiming;
-                        player2.tankState = Tank.TankState.Idle;
                     }
+                }
+
+                //Player 1's Turn
+                if (isPlayer1Turn)
+                {
+                    player1.isActive = true;
+                    player2.isActive = false;
+                    isPlayer1Turn = true;
+                    player1.tankState = Tank.TankState.Aiming;
+                    player2.tankState = Tank.TankState.Idle;
+                }
+                //Player 2's Turn
+                else
+                {
+                    player1.isActive = false;
+                    player2.isActive = true;
+                    isPlayer1Turn = false;
+                    player1.tankState = Tank.TankState.Idle;
+                    player2.tankState = Tank.TankState.Aiming;
                 }
             }
         }
@@ -239,8 +251,10 @@ namespace GameStateManagement
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(player1.texture, player1.worldPosition, Color.White);
-            spriteBatch.Draw(player2.texture, player2.worldPosition, Color.White);
+            spriteBatch.DrawString(gameFont, player1.isActive.ToString(), new Vector2(100, 100), Color.White);
+            spriteBatch.DrawString(gameFont, player2.isActive.ToString(), new Vector2(100, 200), Color.White);
+            player1.Draw(gameTime, spriteBatch);
+            player2.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
 
