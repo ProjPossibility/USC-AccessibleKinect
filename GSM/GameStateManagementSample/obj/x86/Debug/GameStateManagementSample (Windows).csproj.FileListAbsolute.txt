@@ -1,0 +1,16 @@
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\background.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\blank.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\gradient.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\Cannon.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\Tank.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\Mountain.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\world.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\menufont.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\gamefont.xnb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\GameStateManagementSample.exe
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\GameStateManagementSample.pdb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\obj\x86\Debug\GameStateManagementSample.exe
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\obj\x86\Debug\GameStateManagementSample.pdb
+C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\GSM\GameStateManagementSample\bin\x86\Debug\Content\Missile.xnb

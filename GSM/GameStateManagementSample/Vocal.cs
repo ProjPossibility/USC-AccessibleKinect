@@ -306,50 +306,43 @@ namespace SS12Game
 
         void sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
         {
-            Console.Write("\rSpeech Hypothesized: \t{0}", e.Result.Text);
+            Console.WriteLine("Speech Hypothesized: \t{0}", e.Result.Text);
         }
 
         void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            Console.Write("\rSpeech Recognized: \t{0}", e.Result.Text);
+            Console.WriteLine("Speech Recognized: \t{0}", e.Result.Text);
 
-            if (SaidSomething == null)
-                return;
+            //if (SaidSomething == null)
+            //    return;
 
             var said = new SaidSomethingArgs();
             said.Verb = 0;
             said.Angle = 0;
             said.Phrase = e.Result.Text;
 
-            // First check for color, in case both color _and_ shape were both spoken
-            //            bool foundColor = false;
-            //            foreach (var phrase in ColorPhrases)
-            //                if (e.Result.Text.Contains(phrase.Key) && (phrase.Value.verb == Verbs.Colorize))
-            //                {
-            //                    said.RGBColor = phrase.Value.color;
-            //                    said.Matched = phrase.Key;
-            //                    foundColor = true;
-            //                    break;
-            //                }
-
+            
             // Look for a match in the order of the lists below, first match wins.
             List<Dictionary<string, WhatSaid>> allDicts = new List<Dictionary<string, WhatSaid>>() { SinglePhrases, GameplayPhrases, NumberPhrases };
 
             bool found = false;
             for (int i = 0; i < allDicts.Count && !found; ++i)
             {
+                //Console.WriteLine("im in dict " + i);
                 foreach (var phrase in allDicts[i])
                 {
                     if (e.Result.Text.Contains(phrase.Key))
                     {
                         said.Verb = phrase.Value.verb;
+                        Console.WriteLine("Found a verb: " + said.Verb);
                         {
                             said.Matched = phrase.Key;
                         }
                         if (said.Verb == Verbs.Number)
+                        {
                             said.Angle = phrase.Value.angle;
-                        
-                        
+                            Console.WriteLine("Im a number " + said.Angle);
+                        }
                         found = true;
                         break;
                     }
@@ -357,7 +350,13 @@ namespace SS12Game
             }
 
             if (!found)
+            {
+                Console.WriteLine("Nothing in the Dictionary");
                 return;
+            }
+
+
+            Console.WriteLine("My verb is " + said.Verb);
 
             if (said.Verb == Verbs.Pause)
                 thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Pause;
@@ -376,9 +375,9 @@ namespace SS12Game
             }
             else if (said.Verb == Verbs.Fire)
                 thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Fire;
-
             
-            SaidSomething(new object(), said);
+            
+            //SaidSomething(new object(), said);
         }
     }
 }
