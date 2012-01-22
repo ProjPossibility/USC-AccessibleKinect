@@ -5,9 +5,9 @@ namespace Kinexna
 {
     public static class Tools
     {
-        public static Vector3 ToVector3(this Vector vector)
+        public static Vector2 ToVector2(this Vector vector)
         {
-            return new Vector3(vector.X, vector.Y, vector.Z);
+            return new Vector2(vector.X, vector.Y);
         }
     }
 }

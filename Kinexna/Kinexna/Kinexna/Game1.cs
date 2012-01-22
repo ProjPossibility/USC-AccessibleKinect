@@ -33,6 +33,7 @@ namespace Kinexna
 
         float rotationAngle;
         float zoom = 1.0f;
+        Vector2 player1LeftHand = Vector2.Zero; Vector2 player1LeftElbow = Vector2.Zero; Vector2 player2RightHand = Vector2.Zero; Vector2 player2RightElbow = Vector2.Zero;
 
         readonly List<float> horizontalDistances = new List<float>();
 
@@ -95,40 +96,58 @@ namespace Kinexna
         public void OnSkeletonFrameReady(SkeletonFrameReadyEventArgs e)
         {
             SkeletonFrame skeletonFrame = e.SkeletonFrame;
-
+            Boolean player1 = true;
             foreach (SkeletonData data in skeletonFrame.Skeletons)
             {
                 if (data.TrackingState == SkeletonTrackingState.Tracked)
                 {
-                    Vector3 leftHand = Vector3.Zero;
-                    Vector3 rightHand = Vector3.Zero;
-                    Vector3 head = Vector3.Zero;
-
-                    foreach (Joint joint in data.Joints)
+                    if (player1)
                     {
-                        if (joint.ID == JointID.HandLeft)
-                        {
-                            leftHand = joint.Position.ToVector3();
-                        }
-                        else if (joint.ID == JointID.HandRight)
-                        {
-                            rightHand = joint.Position.ToVector3();
-                        }
-                        else if (joint.ID == JointID.Head)
-                        {
-                            head = joint.Position.ToVector3();
-                        }
-                    }
+                        Vector2 leftHand = Vector2.Zero;
+                        Vector2 leftElbow = Vector2.Zero;
 
-                    Vector3 diffVector = (leftHand - rightHand);
+                        foreach (Joint joint in data.Joints)
+                        {
+                            if (joint.ID == JointID.HandLeft)
+                            {
+                                leftHand = joint.Position.ToVector2();
+                            }
+                            else if (joint.ID == JointID.ElbowLeft)
+                            {
+                                leftElbow = joint.Position.ToVector2();
+                            }
+                        }
+                        player1LeftElbow = leftElbow;
+                        player1LeftHand = leftHand;
+                    }
+                    else
+                    {
+                        Vector2 rightHand = Vector2.Zero;
+                        Vector2 rightElbow = Vector2.Zero;
+
+                        foreach (Joint joint in data.Joints)
+                        {
+                            if (joint.ID == JointID.HandLeft)
+                            {
+                                rightHand = joint.Position.ToVector2();
+                            }
+                            else if (joint.ID == JointID.ElbowLeft)
+                            {
+                                rightElbow = joint.Position.ToVector2();
+                            }
+                        }
+                        player2RightHand = rightHand;
+                        player2RightElbow = rightElbow;
+                    }
+                    /*Vector3 diffVector = (leftHand - rightHand);
                     float horizontalDistance = Math.Abs(diffVector.X);
                     float verticalDistance = Math.Abs(diffVector.Y);
                     float depthDistance = diffVector.Z;
 
-                    Vector3 headToRightHand = (head - rightHand);
+                    Vector3 headToRightHand = (head - rightHand);*/
 
 
-                    switch (currentMode)
+                    /*switch (currentMode)
                     {
                         case Mode.Control:
                             // Rotate
@@ -192,23 +211,24 @@ namespace Kinexna
                     }
 
 
-                    oldHorizontalDistance = horizontalDistance;
-                    return;
+                    oldHorizontalDistance = horizontalDistance;*/
                 }
+                player1 = !player1;
             }
+            return;
         }
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            /*spriteBatch = new SpriteBatch(GraphicsDevice);
 
             ship = Content.Load<Model>("Ship");
-            font = Content.Load<SpriteFont>("Segoe");
+            font = Content.Load<SpriteFont>("Segoe");*/
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            lock (this)
+            /*lock (this)
             {
                 // Standard render
                 GraphicsDevice.Clear(Color.Gray);
@@ -254,7 +274,11 @@ namespace Kinexna
                 spriteBatch.End();
 
                 base.Draw(gameTime);
-            }
+            }*/
+            spriteBatch.DrawString(font, "Player 1 Left Hand", player1LeftHand, Color.Aquamarine);
+            spriteBatch.DrawString(font, "Player 1 Left Elbow", player1LeftElbow, Color.Aquamarine);
+            spriteBatch.DrawString(font, "Player 1 Right Hand", player2RightHand, Color.DarkGoldenrod);
+            spriteBatch.DrawString(font, "Player 1 Right Elbow", player2RightElbow, Color.DarkGoldenrod);
         }
     }
 }
