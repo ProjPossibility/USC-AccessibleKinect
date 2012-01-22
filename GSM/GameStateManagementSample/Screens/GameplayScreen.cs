@@ -154,13 +154,18 @@ namespace GameStateManagement
                 }
 
                 //Collision
-                if(player1.intersects(mountain.Bounds) && (player1.moveState == Tank.TankMovementState.MovingRight)) {
+                if(player1.intersects(new Rectangle((int)mountainPosition.X, (int)mountainPosition.Y, mountain.Bounds.Width, mountain.Bounds.Height)) && (player1.moveState == Tank.TankMovementState.MovingRight)) {
                     player1.worldPosition = new Vector2((mountainPosition.X - player1.texture.Width), player1.worldPosition.Y);
                 }
 
                 if (player2.intersects(mountain.Bounds) && (player2.moveState == Tank.TankMovementState.MovingLeft))
                 {
                     player2.worldPosition = new Vector2((mountainPosition.X + mountain.Width), player2.worldPosition.Y);
+                }
+
+                if (player1.isActive && player1.tankState == Tank.TankState.Firing)
+                {
+                    //if( player1.missile.intersects(
                 }
             }
         }
@@ -252,9 +257,6 @@ namespace GameStateManagement
                         player2.changeAim("Down");
                     }
                 }
-
-                //Collision!
-                //if(player1.texture.Bounds.Intersects()
             }
         }
 
@@ -300,6 +302,12 @@ namespace GameStateManagement
         {
             spriteBatch.DrawString(gameFont, "Player 1", new Vector2(100, 100), Color.Blue);
             spriteBatch.DrawString(gameFont, "Player 2", new Vector2(1000, 100), Color.Red);
+            spriteBatch.DrawString(gameFont, "Angle: " + (int)(player1.shotAngle * (90 / 1.6)), new Vector2(100, 150), Color.Blue);
+            spriteBatch.DrawString(gameFont, "Angle: " + (int)(player2.shotAngle * (90 / 1.6)), new Vector2(1000, 150), Color.Red);
+            spriteBatch.DrawString(gameFont, "Force: " + player1.force.ToString(), new Vector2(100, 200), Color.Blue);
+            spriteBatch.DrawString(gameFont, "Force: " + player2.force.ToString(), new Vector2(1000, 200), Color.Red);
+            spriteBatch.DrawString(gameFont, "Score: " + player1.score.ToString(), new Vector2(100, 250), Color.Blue);
+            spriteBatch.DrawString(gameFont, "Score: " + player2.score.ToString(), new Vector2(1000, 250), Color.Red);
         }
 
         #endregion

@@ -19,10 +19,13 @@ namespace GameStateManagement
         protected String textureName;
         public Texture2D texture;
         protected ContentManager contentManager;
+        Rectangle boundingFrame;
+        protected Game curGame;
 
         public Actor(Game game)
             : base(game)
         {
+            curGame = game;
             actorTimer = new Utils.Timer();
             worldPosition = Vector2.Zero;
         }
@@ -54,10 +57,15 @@ namespace GameStateManagement
 
         public bool intersects(Rectangle otherFrame)
         {
-            if (texture.Bounds.Intersects(otherFrame))
+            boundingFrame = new Rectangle((int)worldPosition.X, (int)worldPosition.Y, texture.Bounds.Width, texture.Bounds.Height);
+            if (boundingFrame.Intersects(otherFrame))
             {
                 return true;
-            } return false;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
