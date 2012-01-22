@@ -51,7 +51,8 @@ namespace GameStateManagement
             Resume,
             Up,
             Down,
-            Movement
+            Movement,
+            Enter
         }
 
         public int myAngle;
@@ -181,11 +182,17 @@ namespace GameStateManagement
         public bool IsMenuSelect(PlayerIndex? controllingPlayer,
                                  out PlayerIndex playerIndex)
         {
+            if (currentVoiceCommand == voiceCommandStates.Enter)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
+                playerIndex = 0;
+                return true;
+            }
+
             return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) ||
                    IsNewKeyPress(Keys.Enter, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.A, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex) ||
-                   currentVoiceCommand == voiceCommandStates.Fire;
+                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
         }
 
 
@@ -198,10 +205,17 @@ namespace GameStateManagement
         public bool IsMenuCancel(PlayerIndex? controllingPlayer,
                                  out PlayerIndex playerIndex)
         {
+            
+            if (currentVoiceCommand == voiceCommandStates.Resume)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
+                playerIndex = 0;
+                return true;
+            }
+
             return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.B, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex) ||
-                   currentVoiceCommand == voiceCommandStates.Resume;
+                   IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex);
         }
 
 
@@ -214,10 +228,15 @@ namespace GameStateManagement
         {
             PlayerIndex playerIndex;
 
+            if (currentVoiceCommand == voiceCommandStates.Up)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
+                return true;
+            }
+
             return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.DPadUp, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex) ||
-                   currentVoiceCommand == voiceCommandStates.Up;
+                   IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex);
         }
 
 
@@ -230,10 +249,15 @@ namespace GameStateManagement
         {
             PlayerIndex playerIndex;
 
+            if (currentVoiceCommand == voiceCommandStates.Down)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
+                return true;
+            }
+
             return IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.DPadDown, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex) ||
-                   currentVoiceCommand == voiceCommandStates.Down;
+                   IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex);
         }
 
 
@@ -246,10 +270,15 @@ namespace GameStateManagement
         {
             PlayerIndex playerIndex;
 
+            if (currentVoiceCommand == voiceCommandStates.Pause)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
+                return true;
+            }
+
             return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex) ||
-                   currentVoiceCommand == voiceCommandStates.Pause;
+                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
         }
 
         public bool IsTankFire(PlayerIndex? controllingPlayer)
@@ -258,7 +287,8 @@ namespace GameStateManagement
 
             if (currentVoiceCommand == voiceCommandStates.Fire)
             {
-
+                currentVoiceCommand = voiceCommandStates.None;
+                return true;
             }
 
 
@@ -285,6 +315,12 @@ namespace GameStateManagement
         {
             PlayerIndex playerIndex;
 
+            if (currentVoiceCommand == voiceCommandStates.Up)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
+                return true;
+            }
+
             return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
                    IsKeyHeld(Keys.Up);
         }
@@ -292,6 +328,12 @@ namespace GameStateManagement
         public bool IsAimDown(PlayerIndex? controllingPlayer)
         {
             PlayerIndex playerIndex;
+
+            if (currentVoiceCommand == voiceCommandStates.Down)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
+                return true;
+            }
 
             return IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
                    IsKeyHeld(Keys.Down);
@@ -301,7 +343,10 @@ namespace GameStateManagement
         {
             PlayerIndex playerIndex;
             if (currentVoiceCommand == voiceCommandStates.Number)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
                 return myAngle;
+            }
             else
                 return -1;
         }

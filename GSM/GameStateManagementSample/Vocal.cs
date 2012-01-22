@@ -28,7 +28,8 @@ namespace SS12Game
             Resume,
             Up,
             Down,
-            Movement
+            Movement,
+            Enter
         };
 
         struct WhatSaid
@@ -45,7 +46,8 @@ namespace SS12Game
             {"Fire", new WhatSaid()       {verb=Verbs.Fire}},
             {"Up", new WhatSaid()       {verb=Verbs.Up}},
             {"Down", new WhatSaid()       {verb=Verbs.Down}},
-            {"Movement", new WhatSaid()       {verb=Verbs.Movement}}
+            {"Movement", new WhatSaid()       {verb=Verbs.Movement}},
+            {"Enter", new WhatSaid()       {verb=Verbs.Enter}}
         };
 
         //set up dictionary for basic colors
@@ -387,6 +389,8 @@ namespace SS12Game
                 thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Down;
             else if (said.Verb == Verbs.Movement)
                 thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Movement;
+            else if (said.Verb == Verbs.Enter)
+                thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Enter;
             
             
             //SaidSomething(new object(), said);
