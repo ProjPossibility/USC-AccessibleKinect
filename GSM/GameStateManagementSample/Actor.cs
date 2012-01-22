@@ -15,9 +15,9 @@ namespace GameStateManagement
     class Actor : Microsoft.Xna.Framework.DrawableGameComponent
     {
         protected Utils.Timer actorTimer;
-        protected Vector2 worldPosition;
+        public Vector2 worldPosition;
         protected String textureName;
-        Texture2D texture;
+        public Texture2D texture;
         ContentManager contentManager;
 
         public Actor(Game game)
@@ -49,7 +49,7 @@ namespace GameStateManagement
 
         public override void Draw(GameTime gameTime)
         {
-            
+
             base.Draw(gameTime);
 
         }

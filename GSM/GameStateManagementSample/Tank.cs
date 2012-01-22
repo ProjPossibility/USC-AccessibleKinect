@@ -23,6 +23,7 @@ namespace GameStateManagement
         public override void Initialize()
         {
             textureName = "Tank";
+            worldPosition = new Vector2(100, 100);
             base.Initialize();
         }
 

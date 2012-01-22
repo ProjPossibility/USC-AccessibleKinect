@@ -67,16 +67,6 @@ namespace GameStateManagement
 
             player = new Tank(ScreenManager.Game);
             ScreenManager.Game.Components.Add(player);
-
-            // A real game would probably have more content than this sample, so
-            // it would take longer to load. We simulate that by delaying for a
-            // while, giving you a chance to admire the beautiful loading screen.
-            Thread.Sleep(1000);
-
-            // once the load has finished, we use ResetElapsedTime to tell the game's
-            // timing mechanism that we have just finished a very long frame, and that
-            // it should not try to catch up.
-            ScreenManager.Game.ResetElapsedTime();
         }
 
 
@@ -193,18 +183,15 @@ namespace GameStateManagement
         public override void Draw(GameTime gameTime)
         {
             // This game has a blue background. Why? Because!
-            ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
-                                               Color.CornflowerBlue, 0, 0);
+            /*ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
+                                               Color.CornflowerBlue, 0, 0);*/
 
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
-
-            spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-                                   enemyPosition, Color.DarkRed);
+            spriteBatch.Draw(player.texture, player.worldPosition, Color.White);
 
             spriteBatch.End();
 
