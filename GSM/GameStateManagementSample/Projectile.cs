@@ -50,8 +50,8 @@ namespace GameStateManagement
             }
         }
 
-        Vector2 projectilePosition = Vector2.Zero;
-        public Vector2 ProjectilePosition
+        //Vector2 projectilePosition = Vector2.Zero;
+        /*public Vector2 ProjectilePosition
         {
             get
             {
@@ -61,7 +61,7 @@ namespace GameStateManagement
             {
                 projectilePosition = value;
             }
-        }
+        }*/
 
         // Gets the position where the projectile hit the ground.
         // Only valid after a hit occurs.
@@ -87,17 +87,16 @@ namespace GameStateManagement
             random = new Random();
         }
 
-        public Projectile(Game game, /*SpriteBatch screenSpriteBatch,*/
-            string TextureName, Vector2 startPosition, float forceValue)
+        public Projectile(Game game,Vector2 startPosition, float forceValue)
             : this(game)
         {
-            //spriteBatch = screenSpriteBatch;
-            projectileStartPosition = startPosition;
-            textureName = TextureName;
-            //isAI = isAi;
-            //hitOffset = groundHitOffset;
+
+            worldPosition = startPosition;
+            textureName = "Missile";
+      
             myForceValue = forceValue;
-            //gravity = Gravity;
+            Fire(startPosition.X * forceValue, startPosition.Y * forceValue);
+    
         }
 
         public override void Initialize()
@@ -108,7 +107,7 @@ namespace GameStateManagement
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(projectileTexture, projectilePosition, null,
+            spriteBatch.Draw(projectileTexture, this.worldPosition, null,
                 Color.White, projectileRotation,
                 new Vector2(projectileTexture.Width / 2,
                             projectileTexture.Height / 2),
@@ -123,28 +122,26 @@ namespace GameStateManagement
 
             // Calculate new projectile position using standard
             // formulas, taking the wind as a force.
-            int direction = isAI ? -1 : 1;
+            //int direction = isAI ? -1 : 1;
 
-            float previousXPosition = projectilePosition.X;
-            float previousYPosition = projectilePosition.Y;
+            float previousXPosition = worldPosition.X;
+            float previousYPosition = worldPosition.Y;
 
-            projectilePosition.X = projectileStartPosition.X +
-                (direction * projectileVelocity.X * flightTime) +
-                0.5f * (8 * wind * (float)Math.Pow(flightTime, 2));
+            worldPosition.X = projectileStartPosition.X +
+                (/*direction*/ projectileVelocity.X * flightTime) +
+                0.5f * (8 /* wind */ * (float)Math.Pow(flightTime, 2));
 
-            projectilePosition.Y = projectileStartPosition.Y -
-                (projectileVelocity.Y * flightTime) +
-                0.5f * (gravity * (float)Math.Pow(flightTime, 2));
+            worldPosition.Y = projectileStartPosition.Y - (projectileVelocity.Y * flightTime) + (float)(0.5 * (-9.8 * Math.Pow(flightTime, 2)));
 
             // Calculate the projectile rotation
             //projectileRotation += MathHelper.ToRadians(projectileVelocity.X * 0.5f);
 
             // Check if projectile hit the ground or even passed it 
             // (could happen during normal calculation)
-            if (projectilePosition.Y >= 332 + hitOffset)
+            if (worldPosition.Y >= 332 + hitOffset)
             {
-                projectilePosition.X = previousXPosition;
-                projectilePosition.Y = previousYPosition;
+                worldPosition.X = previousXPosition;
+                worldPosition.Y = previousYPosition;
 
                 ProjectileHitPosition = new Vector2(previousXPosition, 332);
 
