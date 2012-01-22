@@ -231,6 +231,13 @@ namespace GameStateManagement
                    IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
         }
 
+        public bool TankFire(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+
+            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex);
+        }
+
 
         #endregion
     }
