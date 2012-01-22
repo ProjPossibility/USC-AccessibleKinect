@@ -28,14 +28,20 @@ namespace GameStateManagement
         #region Fields
 
         ContentManager content;
-        SpriteFont gameFont;
-
-        Vector2 playerPosition = new Vector2(100, 100);
-        Vector2 enemyPosition = new Vector2(100, 100);
 
         Random random = new Random();
 
-        Tank player;
+        Tank player1;
+        Tank player2;
+
+        bool isPlayer1Turn;
+
+        SpriteFont gameFont;
+
+        //Background environment
+        Texture2D world;
+        Texture2D mountain;
+        Vector2 mountainPosition;
 
         float pauseAlpha;
 
@@ -63,10 +69,23 @@ namespace GameStateManagement
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             gameFont = content.Load<SpriteFont>("gamefont");
+
             ScreenManager.Game.ResetElapsedTime();
 
-            player = new Tank(ScreenManager.Game);
-            ScreenManager.Game.Components.Add(player);
+            player1 = new Tank(ScreenManager.Game, "Player1");
+            ScreenManager.Game.Components.Add(player1);
+            player1.tankState = Tank.TankState.Aiming;
+
+            player1.isActive = true;
+
+            player2 = new Tank(ScreenManager.Game, "Player2");
+            ScreenManager.Game.Components.Add(player2);
+
+            world = content.Load<Texture2D>("world");
+            mountain = content.Load<Texture2D>("Mountain");
+            mountainPosition = new Vector2(450, 475);
+
+            isPlayer1Turn = true;
         }
 
 
@@ -102,21 +121,47 @@ namespace GameStateManagement
 
             if (IsActive)
             {
-                // Apply some random jitter to make the enemy move around.
-                const float randomization = 10;
+                if (player1.isActive == false && player2.isActive == false)
+                {
+                    if (isPlayer1Turn)
+                    {
+                        isPlayer1Turn = false;
+                    }
+                    else
+                    {
+                        //New Turn!
+                        isPlayer1Turn = true;
+                    }
+                }
 
-                enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
-                enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
+                //Player 1's Turn
+                if (isPlayer1Turn)
+                {
+                    player1.isActive = true;
+                    player2.isActive = false;
+                    isPlayer1Turn = true;
+                    player1.tankState = Tank.TankState.Aiming;
+                    player2.tankState = Tank.TankState.Idle;
+                }
+                //Player 2's Turn
+                else
+                {
+                    player1.isActive = false;
+                    player2.isActive = true;
+                    isPlayer1Turn = false;
+                    player1.tankState = Tank.TankState.Idle;
+                    player2.tankState = Tank.TankState.Aiming;
+                }
 
-                // Apply a stabilizing force to stop the enemy moving off the screen.
-                Vector2 targetPosition = new Vector2(
-                    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2, 
-                    200);
+                //Collision
+                if(player1.intersects(mountain.Bounds) && (player1.moveState == Tank.TankMovementState.MovingRight)) {
+                    player1.worldPosition = new Vector2((mountainPosition.X - player1.texture.Width), player1.worldPosition.Y);
+                }
 
-                enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
-
-                // TODO: this game isn't very fun! You could probably improve
-                // it by inserting something more interesting in this space :-)
+                if (player2.intersects(mountain.Bounds) && (player2.moveState == Tank.TankMovementState.MovingLeft))
+                {
+                    player2.worldPosition = new Vector2((mountainPosition.X + mountain.Width), player2.worldPosition.Y);
+                }
             }
         }
 
@@ -149,30 +194,67 @@ namespace GameStateManagement
             }
             else
             {
-                // Otherwise move the player position.
-                Vector2 movement = Vector2.Zero;
+                if (input.IsTankFire(ControllingPlayer)) {
+                    if (isPlayer1Turn)
+                    {
+                        player1.fireMissile();
+                    }
+                    else
+                    {
+                        player2.fireMissile();
+                    }
+                }
 
-                if (keyboardState.IsKeyDown(Keys.Left))
-                    movement.X--;
+                if (input.IsTankMovingLeft(ControllingPlayer))
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.moveTank("Left");
+                    }
+                    else
+                    {
+                        player2.moveTank("Left");
+                    }
+                }
 
-                if (keyboardState.IsKeyDown(Keys.Right))
-                    movement.X++;
+                if (input.IsTankMovingRight(ControllingPlayer))
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.moveTank("Right");
+                    }
+                    else
+                    {
+                        player2.moveTank("Right");
+                    }
+                }
 
-                if (keyboardState.IsKeyDown(Keys.Up))
-                    movement.Y--;
+                if (input.IsAimUp(ControllingPlayer))
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.changeAim("Up");
+                    }
+                    else
+                    {
+                        player2.changeAim("Up");
+                    }
+                }
 
-                if (keyboardState.IsKeyDown(Keys.Down))
-                    movement.Y++;
+                if (input.IsAimDown(ControllingPlayer))
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.changeAim("Down");
+                    }
+                    else
+                    {
+                        player2.changeAim("Down");
+                    }
+                }
 
-                Vector2 thumbstick = gamePadState.ThumbSticks.Left;
-
-                movement.X += thumbstick.X;
-                movement.Y -= thumbstick.Y;
-
-                if (movement.Length() > 1)
-                    movement.Normalize();
-
-                playerPosition += movement * 2;
+                //Collision!
+                //if(player1.texture.Bounds.Intersects()
             }
         }
 
@@ -191,7 +273,11 @@ namespace GameStateManagement
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(player.texture, player.worldPosition, Color.White);
+            ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.Violet, 0, 0);
+            DrawBackground(spriteBatch);
+            DrawHUD(spriteBatch);
+            player1.Draw(gameTime, spriteBatch);
+            player2.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
 
@@ -204,6 +290,17 @@ namespace GameStateManagement
             }
         }
 
+        public void DrawBackground(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(world, new Rectangle(0, 700, 1260, 500), Color.White);
+            spriteBatch.Draw(mountain, mountainPosition, Color.White);
+        }
+
+        public void DrawHUD(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(gameFont, "Player 1", new Vector2(100, 100), Color.Blue);
+            spriteBatch.DrawString(gameFont, "Player 2", new Vector2(1000, 100), Color.Red);
+        }
 
         #endregion
     }

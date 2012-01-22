@@ -231,13 +231,61 @@ namespace GameStateManagement
                    IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
         }
 
-        public bool TankFire(PlayerIndex? controllingPlayer)
+        public bool IsTankFire(PlayerIndex? controllingPlayer)
         {
             PlayerIndex playerIndex;
 
             return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex);
         }
 
+        public bool IsTankMovingLeft(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+
+            return IsNewKeyPress(Keys.Left, controllingPlayer, out playerIndex);
+            //  || IsKeyHeld(Keys.Left);
+        }
+
+        public bool IsTankMovingRight(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+
+            return IsNewKeyPress(Keys.Right, controllingPlayer, out playerIndex);
+            // || IsKeyHeld(Keys.Right);
+        }
+
+        public bool IsAimUp(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+
+            return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
+                   IsKeyHeld(Keys.Up);
+        }
+
+        public bool IsAimDown(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+
+            return IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
+                   IsKeyHeld(Keys.Down);
+        }
+
+        public bool IsKeyHeld(Keys key)
+        {
+            for (int i = 0; i < MaxInputs; i++)
+            {
+                if (IsKeyHeld(key, (PlayerIndex)i))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool IsKeyHeld(Keys key, PlayerIndex playerIndex)
+        {
+            return (CurrentKeyboardStates[(int)playerIndex].IsKeyDown(key) &&
+                    LastKeyboardStates[(int)playerIndex].IsKeyDown(key));
+        }
 
         #endregion
     }

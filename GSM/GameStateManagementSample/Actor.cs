@@ -18,7 +18,7 @@ namespace GameStateManagement
         public Vector2 worldPosition;
         protected String textureName;
         public Texture2D texture;
-        ContentManager contentManager;
+        protected ContentManager contentManager;
 
         public Actor(Game game)
             : base(game)
@@ -49,9 +49,15 @@ namespace GameStateManagement
 
         public override void Draw(GameTime gameTime)
         {
-
             base.Draw(gameTime);
+        }
 
+        public bool intersects(Rectangle otherFrame)
+        {
+            if (texture.Bounds.Intersects(otherFrame))
+            {
+                return true;
+            } return false;
         }
     }
 }
