@@ -25,8 +25,8 @@ namespace GameStateManagement
         #region Fields
 
         GraphicsDeviceManager graphics;
-        ScreenManager screenManager;
-
+        public ScreenManager screenManager;
+        SS12Game.Vocal speakToMe;
 
         // By preloading any assets used by UI rendering, we avoid framerate glitches
         // when they suddenly need to be loaded in the middle of a menu transition.
@@ -56,7 +56,7 @@ namespace GameStateManagement
             screenManager = new ScreenManager(this);
 
             Components.Add(screenManager);
-
+            speakToMe = new SS12Game.Vocal(this);
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);

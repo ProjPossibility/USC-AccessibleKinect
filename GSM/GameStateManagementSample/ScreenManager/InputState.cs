@@ -40,6 +40,20 @@ namespace GameStateManagement
 
         public readonly List<GestureSample> Gestures = new List<GestureSample>();
 
+        public enum voiceCommandStates {
+            None,
+            Ready,
+            Fire,
+            Angle,
+            Number,
+            Reset,
+            Pause,
+            Resume
+        }
+
+        public int myAngle;
+        public voiceCommandStates currentVoiceCommand;
+
         #endregion
 
         #region Initialization
@@ -57,13 +71,13 @@ namespace GameStateManagement
             LastGamePadStates = new GamePadState[MaxInputs];
 
             GamePadWasConnected = new bool[MaxInputs];
+            currentVoiceCommand = voiceCommandStates.None;
         }
 
 
         #endregion
 
         #region Public Methods
-
 
         /// <summary>
         /// Reads the latest state of the keyboard and gamepad.
@@ -94,7 +108,6 @@ namespace GameStateManagement
                 Gestures.Add(TouchPanel.ReadGesture());
             }
         }
-
 
         /// <summary>
         /// Helper for checking if a key was newly pressed during this update. The
@@ -228,14 +241,16 @@ namespace GameStateManagement
 
             return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
+                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex) ||
+                   currentVoiceCommand == voiceCommandStates.Pause;
         }
 
         public bool IsTankFire(PlayerIndex? controllingPlayer)
         {
             PlayerIndex playerIndex;
 
-            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) ||
+                    currentVoiceCommand == voiceCommandStates.Fire;
         }
 
         public bool IsTankMovingLeft(PlayerIndex? controllingPlayer)
@@ -268,6 +283,15 @@ namespace GameStateManagement
 
             return IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
                    IsKeyHeld(Keys.Down);
+        }
+
+        public int IsAimChanged(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+            if (currentVoiceCommand == voiceCommandStates.Number)
+                return myAngle;
+            else
+                return -1;
         }
 
         public bool IsKeyHeld(Keys key)

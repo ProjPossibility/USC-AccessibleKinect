@@ -7,6 +7,7 @@ using Microsoft.Speech.AudioFormat;
 using Microsoft.Speech.Recognition;
 using Microsoft.Xna.Framework;
 using System.Threading;
+using GameStateManagement;
 
 namespace SS12Game
 {
@@ -187,9 +188,9 @@ namespace SS12Game
         public class SaidSomethingArgs : EventArgs
         {
             public Verbs Verb { get; set; }
-            public Color RGBColor { get; set; }
             public string Phrase { get; set; }
             public string Matched { get; set; }
+            public int Angle { get; set; }
         }
 
         public event EventHandler<SaidSomethingArgs> SaidSomething;
@@ -199,9 +200,11 @@ namespace SS12Game
         private const string RecognizerId = "SR_MS_en-US_Kinect_10.0";
         private bool paused = false;
         private bool valid = false;
+        GameStateManagementGame thisGameIsAwesome;
 
-        public Vocal()
+        public Vocal(GameStateManagementGame myGame)
         {
+            thisGameIsAwesome = myGame;
             RecognizerInfo ri = SpeechRecognitionEngine.InstalledRecognizers().Where(r => r.Id == RecognizerId).FirstOrDefault();
             if (ri == null)
                 return;
@@ -314,8 +317,8 @@ namespace SS12Game
                 return;
 
             var said = new SaidSomethingArgs();
-            said.RGBColor = new Color(0, 0, 0);
             said.Verb = 0;
+            said.Angle = 0;
             said.Phrase = e.Result.Text;
 
             // First check for color, in case both color _and_ shape were both spoken
@@ -343,6 +346,9 @@ namespace SS12Game
                         {
                             said.Matched = phrase.Key;
                         }
+                        if (said.Verb == Verbs.Number)
+                            said.Angle = phrase.Value.angle;
+                        
                         
                         found = true;
                         break;
@@ -353,21 +359,25 @@ namespace SS12Game
             if (!found)
                 return;
 
-            if (paused) // Only accept restart or reset
-            {
-                if ((said.Verb != Verbs.Resume) && (said.Verb != Verbs.Reset))
-                    return;
-                paused = false;
-            }
-            else
-            {
-                if (said.Verb == Verbs.Resume)
-                    return;
-            }
-
             if (said.Verb == Verbs.Pause)
-                paused = true;
+                thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Pause;
+            else if (said.Verb == Verbs.Reset)
+                thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Reset;
+            else if (said.Verb == Verbs.Resume)
+                thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Resume;
+            else if (said.Verb == Verbs.Ready)
+                thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Ready;
+            else if (said.Verb == Verbs.Angle)
+                thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Angle;
+            else if (said.Verb == Verbs.Number)
+            {
+                thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Number;
+                thisGameIsAwesome.screenManager.input.myAngle = said.Angle;
+            }
+            else if (said.Verb == Verbs.Fire)
+                thisGameIsAwesome.screenManager.input.currentVoiceCommand = InputState.voiceCommandStates.Fire;
 
+            
             SaidSomething(new object(), said);
         }
     }

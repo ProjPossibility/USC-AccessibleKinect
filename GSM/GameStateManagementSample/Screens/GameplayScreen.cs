@@ -264,6 +264,18 @@ namespace GameStateManagement
                         player2.changeAim("Down");
                     }
                 }
+
+                if (input.IsAimChanged(ControllingPlayer) != -1)
+                {
+                    if (isPlayer1Turn)
+                    {
+                        player1.shotAngle = input.IsAimChanged(ControllingPlayer);
+                    }
+                    else
+                    {
+                        player2.shotAngle = input.IsAimChanged(ControllingPlayer);
+                    }
+                }
             }
         }
 

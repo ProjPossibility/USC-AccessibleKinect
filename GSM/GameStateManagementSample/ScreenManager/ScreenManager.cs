@@ -32,7 +32,7 @@ namespace GameStateManagement
         List<GameScreen> screens = new List<GameScreen>();
         List<GameScreen> screensToUpdate = new List<GameScreen>();
 
-        InputState input = new InputState();
+        public InputState input = new InputState();
 
         SpriteBatch spriteBatch;
         SpriteFont font;
