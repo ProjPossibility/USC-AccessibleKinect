@@ -8,9 +8,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Microsoft.Research.Kinect;
 
-namespace SS12Game
+namespace WindowsGame1
 {
     /// <summary>
     /// This is the main type for your game
@@ -19,15 +18,22 @@ namespace SS12Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Skeletion cursor;
+
+        Texture2D handCursor;
+
+        Vector2 rightHandPosition = new Vector2(0.0f);
+
+        NUICursor cursor;
+
+        bool useMouse = false;
+
 
         public Game1()
         {
-            Vocal voiceCommand = new Vocal();
-            cursor = new Skeletion(this);
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            //Initialize();
+
+            cursor = new NUICursor(this);
         }
 
         /// <summary>
@@ -50,11 +56,12 @@ namespace SS12Game
         /// </summary>
         protected override void LoadContent()
         {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            handCursor = Content.Load<Texture2D>("hand");
 
             cursor.CreateEvent();
-            //datTexture = Content.Load<Texture2D>("hand.png");
-            // Create a new SpriteBatch, which can be used to draw textures.
-            //spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -92,11 +99,9 @@ namespace SS12Game
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //spriteBatch.Begin();
-            
-            Rectangle drawMe = new Rectangle(Convert.ToInt32(cursor.Position.X), Convert.ToInt32(cursor.Position.Y), 50, 60);
-           //spriteBatch.End();
-            
+            spriteBatch.Begin();
+            spriteBatch.Draw(handCursor, new Rectangle(Convert.ToInt32(cursor.Position.X), Convert.ToInt32(cursor.Position.Y), 50, 60), Color.White);
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

@@ -1,18 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Research.Kinect.Nui;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Research.Kinect.Nui;
 
-namespace SS12Game
+namespace WindowsGame1
 {
-    class Skeletion
+    /// <summary>
+    /// A class that represents the position of the interaction cursor. Here, it will be our right hand.
+    /// </summary>
+    public class NUICursor : Microsoft.Xna.Framework.GameComponent
     {
+
         Runtime kinectSensor = new Runtime();
 
+
+        GraphicsDevice device;
         Vector2 position = new Vector2(0.0f);
         Vector2 resolution = new Vector2(0.0f);
+
+        public Vector2 Resolution
+        {
+            get { return resolution; }
+            set { resolution = value; }
+        }
         float scale = 1.0f;
 
         public float Scale
@@ -27,17 +44,15 @@ namespace SS12Game
             set { position = value; }
         }
 
-        public Vector2 Resolution
+        public NUICursor(Game game)
+            : base(game)
         {
-            get { return resolution; }
-            set { resolution = value; }
         }
 
         public void Initialize(float scale, int width, int height)
         {
             resolution = new Vector2((float)width, (float)height);
             this.scale = scale;
-
             try
             {
                 kinectSensor.Initialize(RuntimeOptions.UseSkeletalTracking);
@@ -52,11 +67,14 @@ namespace SS12Game
                     MaxDeviationRadius = 0.04f
                 };
 
+
                 kinectSensor.SkeletonEngine.SmoothParameters = p;
             }
             catch (Exception ex)
             {
             }
+
+            base.Initialize();
         }
 
         public void CreateEvent()
@@ -79,6 +97,5 @@ namespace SS12Game
             }
 
         }
-
     }
 }
