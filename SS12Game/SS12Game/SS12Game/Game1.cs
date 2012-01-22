@@ -19,12 +19,17 @@ namespace SS12Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Skeletion cursor;
+
+        Texture2D datTexture;
 
         public Game1()
         {
             Vocal voiceCommand = new Vocal();
+            cursor = new Skeletion();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //Initialize();
         }
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace SS12Game
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            cursor.Initialize(1.0f, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             base.Initialize();
         }
@@ -46,6 +52,9 @@ namespace SS12Game
         /// </summary>
         protected override void LoadContent()
         {
+
+            cursor.CreateEvent();
+            datTexture = Content.Load<Texture2D>("hand");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -85,6 +94,10 @@ namespace SS12Game
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
+            spriteBatch.Draw(datTexture, new Rectangle(Convert.ToInt32(cursor.Position.X), Convert.ToInt32(cursor.Position.Y), 50, 60), Color.White);
+            spriteBatch.End();
+            
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

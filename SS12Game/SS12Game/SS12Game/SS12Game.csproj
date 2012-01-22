@@ -112,6 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Skeletion.cs" />
     <Compile Include="Vocal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <Content Include="hand.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SS12GameContent\SS12GameContent.contentproj">
