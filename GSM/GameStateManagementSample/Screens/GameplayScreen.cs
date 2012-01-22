@@ -35,6 +35,8 @@ namespace GameStateManagement
 
         Random random = new Random();
 
+        Tank player;
+
         float pauseAlpha;
 
         #endregion
@@ -61,6 +63,10 @@ namespace GameStateManagement
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             gameFont = content.Load<SpriteFont>("gamefont");
+            ScreenManager.Game.ResetElapsedTime();
+
+            player = new Tank(ScreenManager.Game);
+            ScreenManager.Game.Components.Add(player);
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
