@@ -56,6 +56,7 @@ namespace GameStateManagement
         }
 
         public int myAngle;
+        public float myArmAngle;
         public voiceCommandStates currentVoiceCommand;
 
         #endregion
@@ -346,6 +347,13 @@ namespace GameStateManagement
             {
                 currentVoiceCommand = voiceCommandStates.None;
                 return myAngle;
+            }
+
+            else if (currentVoiceCommand == voiceCommandStates.Angle)
+            {
+                currentVoiceCommand = voiceCommandStates.None;
+                int tempInt = (int)myArmAngle;
+                return tempInt;
             }
             else
                 return -1;

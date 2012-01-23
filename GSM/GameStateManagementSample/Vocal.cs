@@ -9,7 +9,8 @@ using Microsoft.Xna.Framework;
 using System.Threading;
 using GameStateManagement;
 
-namespace SS12Game
+namespace GameStateManagement
+
 {
     class Vocal
     {
@@ -348,6 +349,7 @@ namespace SS12Game
                         }
                         if (said.Verb == Verbs.Number)
                         {
+                            Console.WriteLine("I really should be " + phrase.Value.angle);
                             said.Angle = phrase.Value.angle;
                             Console.WriteLine("Im a number " + said.Angle);
                         }
