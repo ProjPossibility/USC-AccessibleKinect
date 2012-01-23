@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Framework="Microsoft.Xna.Framework" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Ship.fbx</Source>
+      <Name>Ship</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Release\Content\Ship.xnb</Output>
+      <Time>2011-06-06T11:52:26-07:00</Time>
+      <Dependency>
+        <Key>obj\x86\Release\Ship_0.xml</Key>
+        <Value>2012-01-22T16:43:50.0059978-08:00</Value>
+      </Dependency>
+      <Request>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Release\Content\ShipDiffuse_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>ShipDiffuse.tga</Source>
+      <Name>ShipDiffuse</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Release\Content\ShipDiffuse.xnb</Output>
+      <Time>2011-06-06T11:52:26-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Segoe.spritefont</Source>
+      <Name>Segoe</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Release\Content\Segoe.xnb</Output>
+      <Time>2011-06-06T18:40:22-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Ship.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Release\Ship_0.xml</Output>
+      <Time>2011-06-06T11:52:26-07:00</Time>
+    </Item>
+    <Item>
+      <Source>ShipDiffuse.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Release\Content\ShipDiffuse_0.xnb</Output>
+      <Time>2011-06-06T11:52:26-07:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\KinexnaContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\KinexnaContent\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinexna\Kinexna\Kinexna\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T13:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T13:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-01-21T13:13:50.3217473-08:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

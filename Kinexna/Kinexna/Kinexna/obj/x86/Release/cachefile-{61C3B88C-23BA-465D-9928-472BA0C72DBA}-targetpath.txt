@@ -1,0 +1,4 @@
+Content\Ship.xnb
+Content\ShipDiffuse.xnb
+Content\Segoe.xnb
+Content\ShipDiffuse_0.xnb
