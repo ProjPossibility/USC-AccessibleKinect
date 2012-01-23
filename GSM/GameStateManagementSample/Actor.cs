@@ -19,7 +19,7 @@ namespace GameStateManagement
         protected String textureName;
         public Texture2D texture;
         protected ContentManager contentManager;
-        Rectangle boundingFrame;
+        public Rectangle boundingFrame;
         protected Game curGame;
 
         public Actor(Game game)
@@ -59,6 +59,19 @@ namespace GameStateManagement
         {
             boundingFrame = new Rectangle((int)worldPosition.X, (int)worldPosition.Y, texture.Bounds.Width, texture.Bounds.Height);
             if (boundingFrame.Intersects(otherFrame))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool intersects(BoundingSphere otherFrame)
+        {
+            boundingFrame = new Rectangle((int)worldPosition.X, (int)worldPosition.Y, texture.Bounds.Width, texture.Bounds.Height);
+            if (otherFrame.Intersects(new BoundingBox(new Vector3(boundingFrame.X, boundingFrame.Y, 0), new Vector3(boundingFrame.X + boundingFrame.Width, boundingFrame.Y + boundingFrame.Height, 0))))
             {
                 return true;
             }

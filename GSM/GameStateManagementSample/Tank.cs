@@ -78,7 +78,7 @@ namespace GameStateManagement
 
             //Set-up Cannon
             shotAngle = 0;
-            force = 10;
+            force = 50;
             contentManager = new ContentManager(Game.Services, "Content");
             cannonTexture = contentManager.Load<Texture2D>("Cannon");
             cannonLocation = new Vector2((worldPosition.X + 50), (worldPosition.Y + 10));
@@ -129,13 +129,13 @@ namespace GameStateManagement
         {
             if (tankState != TankState.Idle || tankState != TankState.Firing)
             {
-                if (angleDirection == "Down" && (shotAngle >= -1.6))
+                if (angleDirection == "Down" && (shotAngle >= -Math.PI/2))//-1.6))
                 {
-                    shotAngle -= (float)0.1;
+                    shotAngle -= (float).1;
                 }
-                else if(angleDirection == "Up" && (shotAngle <= 1.6))
+                else if(angleDirection == "Up" && (shotAngle <= Math.PI/2))//1.6))
                 {
-                    shotAngle += (float)0.1;
+                    shotAngle += (float).1;
                 }
             }
         }

@@ -42,6 +42,7 @@ namespace GameStateManagement
         Texture2D world;
         Texture2D mountain;
         Vector2 mountainPosition;
+        BoundingSphere mountainBounding;
 
         float pauseAlpha;
 
@@ -84,6 +85,8 @@ namespace GameStateManagement
             world = content.Load<Texture2D>("world");
             mountain = content.Load<Texture2D>("Mountain");
             mountainPosition = new Vector2(450, 475);
+
+            mountainBounding = new BoundingSphere(new Vector3(mountainPosition.X + 200, 550, 0), (float)100);
 
             isPlayer1Turn = true;
         }
@@ -140,8 +143,12 @@ namespace GameStateManagement
                     player1.isActive = true;
                     player2.isActive = false;
                     isPlayer1Turn = true;
-                    player1.tankState = Tank.TankState.Aiming;
-                    player2.tankState = Tank.TankState.Idle;
+                    if (player1.tankState != Tank.TankState.Firing)
+                    {
+                        player1.tankState = Tank.TankState.Aiming;
+                        player2.tankState = Tank.TankState.Idle;
+                    }
+                   
                 }
                 //Player 2's Turn
                 else
@@ -149,23 +156,86 @@ namespace GameStateManagement
                     player1.isActive = false;
                     player2.isActive = true;
                     isPlayer1Turn = false;
-                    player1.tankState = Tank.TankState.Idle;
-                    player2.tankState = Tank.TankState.Aiming;
+                    if (player2.tankState != Tank.TankState.Firing)
+                    {
+                        player1.tankState = Tank.TankState.Idle;
+                        player2.tankState = Tank.TankState.Aiming;
+                    }
                 }
 
+                Rectangle grassBounding = new Rectangle(-600,700,10000,50);
                 //Collision
-                if(player1.intersects(new Rectangle((int)mountainPosition.X, (int)mountainPosition.Y, mountain.Bounds.Width, mountain.Bounds.Height)) && (player1.moveState == Tank.TankMovementState.MovingRight)) {
+                if(player1.intersects(mountainBounding) && (player1.moveState == Tank.TankMovementState.MovingRight)) {
                     player1.worldPosition = new Vector2((mountainPosition.X - player1.texture.Width), player1.worldPosition.Y);
                 }
 
-                if (player2.intersects(mountain.Bounds) && (player2.moveState == Tank.TankMovementState.MovingLeft))
+                if (player2.intersects(mountainBounding) && (player2.moveState == Tank.TankMovementState.MovingLeft))
                 {
                     player2.worldPosition = new Vector2((mountainPosition.X + mountain.Width), player2.worldPosition.Y);
                 }
 
                 if (player1.isActive && player1.tankState == Tank.TankState.Firing)
                 {
-                    //if( player1.missile.intersects(
+                    if (player1.missile.intersects(mountainBounding))
+                    {
+                        //Remove the missile from the field
+                        ScreenManager.Game.Components.Remove(player1.missile);
+                        
+                        //No points
+                        //player1.isActive = !player1.isActive;
+                        //player2.isActive = !player2.isActive;
+                        isPlayer1Turn = false;
+                        player1.missile = null;
+                    }
+                    else if (player1.missile.intersects(player2.boundingFrame))
+                    {
+                        ScreenManager.Game.Components.Remove(player1.missile);
+
+                        player1.score += 5;
+                        //player1.isActive = !player1.isActive;
+                        //player2.isActive = !player2.isActive;
+                        isPlayer1Turn = false;
+                        player1.missile = null;
+                    }
+                    else if (player1.missile.intersects(grassBounding))
+                    {
+                        ScreenManager.Game.Components.Remove(player1.missile);
+                        isPlayer1Turn = false;
+                        player1.missile = null;
+                    }
+                }
+
+                if(player2.isActive && player2.tankState == Tank.TankState.Firing)
+                {
+                    if (player2.missile.intersects(mountainBounding))
+                    {
+                        //Remove the missile
+                        ScreenManager.Game.Components.Remove(player2.missile);
+                        //player2.isActive = !player2.isActive;
+                        //player1.isActive = !player1.isActive;
+                        //No points
+                        isPlayer1Turn = true;
+                        player2.missile = null;
+                    }
+                    else if (player2.missile.intersects(player1.boundingFrame))
+                    {
+                        //Remove the missile 
+                        ScreenManager.Game.Components.Remove(player2.missile);
+                        //player1.isActive = !player1.isActive;
+                        //player2.isActive = !player2.isActive;
+                        isPlayer1Turn = true;
+                        player2.missile = null;
+                        //Add Points to player2
+                        player2.score += 5;
+
+                    }
+                    else if (player2.missile.intersects(grassBounding))
+                    {
+                        ScreenManager.Game.Components.Remove(player2.missile);
+                        isPlayer1Turn = true;
+                        player2.missile = null;
+                    }
+                   
                 }
             }
         }
@@ -202,16 +272,39 @@ namespace GameStateManagement
                 if (input.IsTankFire(ControllingPlayer)) {
                     if (isPlayer1Turn)
                     {
-                        double missileAngle = ((player1.shotAngle * (90 / 1.6)) * (Math.PI / 180));
-                        Projectile missile = new Projectile(ScreenManager.Game, 
-                            new Vector2((float)(Math.Cos(missileAngle) * player1.cannonTexture.Height) + player1.cannonLocation.X, (float)(Math.Sin(missileAngle) * player1.cannonTexture.Height) + player1.cannonLocation.Y - player1.texture.Height), player1.force);
+                        double missileAngle = ((player1.shotAngle /** (Math.PI / 180)*/));
+                        Console.WriteLine("The missile angle is: "+missileAngle);
+                        Projectile missile;
+                        if (missileAngle < 0)
+                        {
+                           missile = new Projectile(ScreenManager.Game,
+                           new Vector2(player1.cannonLocation.X - (float)(Math.Cos(missileAngle) * player1.cannonTexture.Height), (float)(Math.Sin(missileAngle) * player1.cannonTexture.Height) + player1.cannonLocation.Y - player1.texture.Height), new Vector2(-player1.force, player1.force));
+                        }
+                        else
+                        {
+                           missile = new Projectile(ScreenManager.Game,
+                           new Vector2(player1.cannonLocation.X + (float)(Math.Cos(missileAngle) * player1.cannonTexture.Height), (float)(Math.Sin(missileAngle) * player1.cannonTexture.Height) + player1.cannonLocation.Y - player1.texture.Height), new Vector2(player1.force, player1.force));
+                        }
+
                         player1.fireMissile(missile);
                         ScreenManager.Game.Components.Add(missile);
                     }
                     else
                     {
-                        Projectile missile = new Projectile(ScreenManager.Game,
-                           new Vector2((float)(Math.Cos((double)player2.shotAngle) * player2.cannonTexture.Height) + player2.cannonLocation.X, (float)(Math.Sin((double)player2.shotAngle) * player2.cannonTexture.Height) - player2.cannonLocation.Y), player2.force);
+                        double missileAngle = ((player2.shotAngle /** (Math.PI / 180)*/));
+                        Console.WriteLine("The missile angle is: " + missileAngle);
+                        Projectile missile;
+                        if (missileAngle < 0)
+                        {
+                            missile = new Projectile(ScreenManager.Game,
+                            new Vector2(player2.cannonLocation.X - (float)(Math.Cos(missileAngle) * player2.cannonTexture.Height), (float)(Math.Sin(missileAngle) * player2.cannonTexture.Height) + player2.cannonLocation.Y - player2.texture.Height), new Vector2(player2.force, player2.force));
+                        }
+                        else
+                        {
+                            missile = new Projectile(ScreenManager.Game,
+                            new Vector2(player2.cannonLocation.X + (float)(Math.Cos(missileAngle) * player2.cannonTexture.Height), (float)(Math.Sin(missileAngle) * player2.cannonTexture.Height) + player2.cannonLocation.Y - player2.texture.Height), new Vector2(-player2.force, player2.force));
+                        } 
+                        
                         player2.fireMissile(missile);
                         ScreenManager.Game.Components.Add(missile);
                     }
@@ -327,6 +420,8 @@ namespace GameStateManagement
             spriteBatch.DrawString(gameFont, "Force: " + player2.force.ToString(), new Vector2(1000, 200), Color.Red);
             spriteBatch.DrawString(gameFont, "Score: " + player1.score.ToString(), new Vector2(100, 250), Color.Blue);
             spriteBatch.DrawString(gameFont, "Score: " + player2.score.ToString(), new Vector2(1000, 250), Color.Red);
+            spriteBatch.DrawString(gameFont, "Status: " + player1.tankState.ToString(), new Vector2(100, 300), Color.Blue);
+            spriteBatch.DrawString(gameFont, "Status: " + player2.tankState.ToString(), new Vector2(1000, 300), Color.Red);
         }
 
         #endregion

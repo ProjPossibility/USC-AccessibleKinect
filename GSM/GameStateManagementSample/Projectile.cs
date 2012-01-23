@@ -29,7 +29,7 @@ namespace GameStateManagement
         Vector2 projectileRotationPosition = Vector2.Zero;
         public float projectileRotation;
         float flightTime;
-        float myForceValue;
+        Vector2 myForceValue;
 
         Vector2 projectileStartPosition;
         public Vector2 ProjectileStartPosition
@@ -55,7 +55,7 @@ namespace GameStateManagement
             random = new Random();
         }
 
-        public Projectile(Game game,Vector2 startPosition, float forceValue)
+        public Projectile(Game game,Vector2 startPosition, Vector2 forceValue)
             : this(game)
         {
             curGame = game;
@@ -66,7 +66,7 @@ namespace GameStateManagement
             textureName = "Missile";
       
             myForceValue = forceValue;
-            Fire(forceValue, forceValue);
+            Fire(forceValue.X, forceValue.Y);
         }
 
         public override void Initialize()
@@ -103,7 +103,7 @@ namespace GameStateManagement
                 ( projectileVelocity.X * flightTime) +
                 0.5f * (8  * (float)Math.Pow(flightTime, 2));
 
-            worldPosition.Y = projectileStartPosition.Y - (projectileVelocity.Y * flightTime) + (float)(0.5 * (-9.8 * Math.Pow(flightTime, 2)));
+            worldPosition.Y = projectileStartPosition.Y - (projectileVelocity.Y * flightTime) + (float)(0.5 * (9.8 * Math.Pow(flightTime, 2)));
         }
 
         public void Fire(float velocityX, float velocityY)
