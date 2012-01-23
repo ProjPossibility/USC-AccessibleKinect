@@ -40,7 +40,7 @@ namespace GameStateManagement
 
 
                 kinectSensor.SkeletonEngine.SmoothParameters = p;
-            }
+               }
             catch (Exception ex)
             {
             }
