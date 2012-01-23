@@ -1,5 +1,0 @@
-C:\Private\AdeccoDassen\WindowsGame1\WindowsGame1\WindowsGame1Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Private\My Tutorials\AdeccoDassen\WindowsGame1\WindowsGame1\WindowsGame1Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Private\My Tutorials\Kinect Tutorial 4\WindowsGame1\WindowsGame1\WindowsGame1Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\crimzon\Desktop\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\crimzon\Documents\GitExt\SS12\USC-AccessibleKinect\Kinect Tutorial 4 - Skeletal Tracking\WindowsGame1\WindowsGame1Content\obj\x86\Debug\ResolveAssemblyReference.cache
